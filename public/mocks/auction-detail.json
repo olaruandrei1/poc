@@ -1,0 +1,133 @@
+{
+    "id": "auc_001",
+    "product": {
+        "id": "prod_aj1_chi_001",
+        "name": "Air Jordan 1 Retro High OG",
+        "brand": "Nike",
+        "category": "Sneakers",
+        "colorway": "Chicago Lost & Found",
+        "size": "10",
+        "sizeSystem": "US",
+        "condition": "new",
+        "images": [
+            "/mocks/img/aj1-chicago.png",
+            "/mocks/img/aj1-chicago-2.png",
+            "/mocks/img/aj1-chicago-3.png",
+            "/mocks/img/aj1-chicago-4.png"
+        ],
+        "retailPrice": 180,
+        "estimatedMarketValue": 520
+    },
+    "seller": {
+        "id": "seller_042",
+        "username": "kicks_collector_ro",
+        "avatarUrl": "/mocks/img/avatar-seller-1.png",
+        "rating": 4.9,
+        "totalSales": 247,
+        "isVerified": true
+    },
+    "status": "ending_soon",
+    "startPrice": 200,
+    "currentPrice": 487,
+    "reservePrice": 450,
+    "reserveMet": true,
+    "bidCount": 23,
+    "uniqueBidders": 11,
+    "startsAt": "2026-04-26T18:45:00Z",
+    "endsAt": "2026-05-03T18:45:00Z",
+    "originalEndsAt": "2026-05-03T18:45:00Z",
+    "extensionCount": 0,
+    "highestBidderId": "user_891",
+    "highestBidderUsername": "snkr_hunter",
+    "duration": "7d",
+    "views": 1247,
+    "watchers": 142,
+    "description": "Brand new, deadstock pair. Box and all original accessories included. Shipped from Bucharest with full insurance.",
+    "recentBids": [
+        {
+            "id": "bid_023",
+            "auctionId": "auc_001",
+            "bidderId": "user_891",
+            "bidderUsername": "snkr_hunter",
+            "bidderAvatarUrl": "/mocks/img/avatar-1.png",
+            "amount": 487,
+            "placedAt": "2026-05-03T16:12:00Z",
+            "isAutoBid": true,
+            "triggeredExtension": false
+        },
+        {
+            "id": "bid_022",
+            "auctionId": "auc_001",
+            "bidderId": "user_445",
+            "bidderUsername": "grail_seeker",
+            "bidderAvatarUrl": "/mocks/img/avatar-2.png",
+            "amount": 480,
+            "placedAt": "2026-05-03T16:11:50Z",
+            "isAutoBid": false,
+            "triggeredExtension": false
+        },
+        {
+            "id": "bid_021",
+            "auctionId": "auc_001",
+            "bidderId": "user_891",
+            "bidderUsername": "snkr_hunter",
+            "amount": 465,
+            "placedAt": "2026-05-03T15:42:00Z",
+            "isAutoBid": true,
+            "triggeredExtension": false
+        },
+        {
+            "id": "bid_020",
+            "auctionId": "auc_001",
+            "bidderId": "user_201",
+            "bidderUsername": "fresh_kicks",
+            "amount": 460,
+            "placedAt": "2026-05-03T15:41:30Z",
+            "isAutoBid": false,
+            "triggeredExtension": true
+        },
+        {
+            "id": "bid_019",
+            "auctionId": "auc_001",
+            "bidderId": "user_445",
+            "bidderUsername": "grail_seeker",
+            "amount": 410,
+            "placedAt": "2026-05-03T14:30:00Z",
+            "isAutoBid": false,
+            "triggeredExtension": false
+        },
+        {
+            "id": "bid_018",
+            "auctionId": "auc_001",
+            "bidderId": "user_891",
+            "bidderUsername": "snkr_hunter",
+            "amount": 405,
+            "placedAt": "2026-05-03T14:29:00Z",
+            "isAutoBid": false,
+            "triggeredExtension": false
+        },
+        {
+            "id": "bid_017",
+            "auctionId": "auc_001",
+            "bidderId": "user_201",
+            "bidderUsername": "fresh_kicks",
+            "amount": 380,
+            "placedAt": "2026-05-03T12:15:00Z",
+            "isAutoBid": false,
+            "triggeredExtension": false
+        },
+        {
+            "id": "bid_016",
+            "auctionId": "auc_001",
+            "bidderId": "user_555",
+            "bidderUsername": "sole_mate",
+            "amount": 350,
+            "placedAt": "2026-05-02T20:00:00Z",
+            "isAutoBid": false,
+            "triggeredExtension": false
+        }
+    ],
+    "myCurrentBid": null,
+    "myAutoBid": null,
+    "isWatching": false
+}

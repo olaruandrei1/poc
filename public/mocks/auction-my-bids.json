@@ -1,0 +1,38 @@
+{
+    "items": [
+        {
+            "auctionId": "auc_002",
+            "productName": "Yeezy Boost 350 V2",
+            "productImage": "/mocks/img/yeezy-zebra.png",
+            "myBidAmount": 312,
+            "currentPrice": 312,
+            "isWinning": true,
+            "status": "live",
+            "endsAt": "2026-05-04T12:00:00Z",
+            "bidPlacedAt": "2026-05-03T10:22:00Z"
+        },
+        {
+            "auctionId": "auc_005",
+            "productName": "Travis Scott x AJ1 Low",
+            "productImage": "/mocks/img/ts-aj1-low.png",
+            "myBidAmount": 1380,
+            "currentPrice": 1450,
+            "isWinning": false,
+            "status": "ending_soon",
+            "endsAt": "2026-05-03T17:30:00Z",
+            "bidPlacedAt": "2026-05-02T19:15:00Z"
+        },
+        {
+            "auctionId": "auc_007",
+            "productName": "Air Max 1 '86",
+            "productImage": "/mocks/img/am1-86.png",
+            "myBidAmount": 220,
+            "currentPrice": 245,
+            "isWinning": false,
+            "status": "live",
+            "endsAt": "2026-05-04T22:15:00Z",
+            "bidPlacedAt": "2026-05-03T08:00:00Z"
+        }
+    ],
+    "totalCount": 3
+}

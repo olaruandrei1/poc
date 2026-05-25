@@ -1,0 +1,13 @@
+{
+    "items": [
+        {
+            "auctionId": "auc_won_001",
+            "productName": "Dunk Low Retro",
+            "productImage": "/mocks/img/dunk-panda.png",
+            "finalPrice": 178,
+            "wonAt": "2026-04-28T15:00:00Z",
+            "checkoutCompleted": false
+        }
+    ],
+    "totalCount": 1
+}

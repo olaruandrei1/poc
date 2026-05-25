@@ -1,0 +1,361 @@
+{
+  "columns": [
+    {
+      "title": "Air Jordan",
+      "links": [
+        {
+          "label": "Air Jordan 1",
+          "href": "/sneakers/jordan-1"
+        },
+        {
+          "label": "Air Jordan 3",
+          "href": "/sneakers/jordan-3"
+        },
+        {
+          "label": "Air Jordan 4",
+          "href": "/sneakers/jordan-4"
+        },
+        {
+          "label": "Air Jordan 5",
+          "href": "/sneakers/jordan-5"
+        },
+        {
+          "label": "Air Jordan 11",
+          "href": "/sneakers/jordan-11"
+        },
+        {
+          "label": "Air Jordan 12",
+          "href": "/sneakers/jordan-12"
+        }
+      ]
+    },
+    {
+      "title": "Popular Releases",
+      "links": [
+        {
+          "label": "Jordan 3 Retro Black Cat (2025)",
+          "href": "/product/jordan-3-black-cat"
+        },
+        {
+          "label": "Jordan 5 Retro OG Black Metallic",
+          "href": "/product/jordan-5-black-metallic"
+        },
+        {
+          "label": "Jordan 1 Retro High '85 OG Bred (2025)",
+          "href": "/product/jordan-1-bred-85"
+        },
+        {
+          "label": "Jordan 1 Retro High OG Black Toe",
+          "href": "/product/jordan-1-black-toe"
+        }
+      ]
+    },
+    {
+      "title": "Adidas",
+      "links": [
+        {
+          "label": "Adidas Yeezy",
+          "href": "/brand/yeezy"
+        },
+        {
+          "label": "Yeezy Slides",
+          "href": "/sneakers/yeezy-slides"
+        },
+        {
+          "label": "Yeezy Foam RNR",
+          "href": "/sneakers/yeezy-foam-rnr"
+        },
+        {
+          "label": "Yeezy Boost 350",
+          "href": "/sneakers/yeezy-350"
+        },
+        {
+          "label": "Yeezy 700",
+          "href": "/sneakers/yeezy-700"
+        },
+        {
+          "label": "Campus 00s",
+          "href": "/sneakers/campus-00s"
+        }
+      ]
+    },
+    {
+      "title": "Apparel",
+      "links": [
+        {
+          "label": "Denim Tears",
+          "href": "/apparel/denim-tears"
+        },
+        {
+          "label": "BAPE",
+          "href": "/apparel/bape"
+        },
+        {
+          "label": "Nike Apparel",
+          "href": "/apparel/nike"
+        },
+        {
+          "label": "Supreme",
+          "href": "/apparel/supreme"
+        },
+        {
+          "label": "Travis Scott",
+          "href": "/apparel/travis-scott"
+        },
+        {
+          "label": "Yeezy",
+          "href": "/apparel/yeezy"
+        }
+      ]
+    },
+    {
+      "title": "New Balance",
+      "links": [
+        {
+          "label": "New Balance 2002R",
+          "href": "/sneakers/nb-2002r"
+        },
+        {
+          "label": "New Balance 1906R",
+          "href": "/sneakers/nb-1906r"
+        },
+        {
+          "label": "New Balance 530",
+          "href": "/sneakers/nb-530"
+        },
+        {
+          "label": "New Balance 550",
+          "href": "/sneakers/nb-550"
+        },
+        {
+          "label": "New Balance 9060",
+          "href": "/sneakers/nb-9060"
+        },
+        {
+          "label": "New Balance 990 V1",
+          "href": "/sneakers/nb-990-v1"
+        }
+      ]
+    },
+    {
+      "title": "Accessories",
+      "links": [
+        {
+          "label": "Swatch X Omega",
+          "href": "/accessories/swatch-omega"
+        },
+        {
+          "label": "Stanley",
+          "href": "/accessories/stanley"
+        },
+        {
+          "label": "Designer Sunglasses",
+          "href": "/accessories/sunglasses"
+        },
+        {
+          "label": "Louis Vuitton Accessories",
+          "href": "/accessories/lv"
+        },
+        {
+          "label": "Gucci Accessories",
+          "href": "/accessories/gucci"
+        },
+        {
+          "label": "Supreme Accessories",
+          "href": "/accessories/supreme"
+        }
+      ]
+    },
+    {
+      "title": "Nike",
+      "links": [
+        {
+          "label": "Air Force 1",
+          "href": "/sneakers/air-force-1"
+        },
+        {
+          "label": "Air Max",
+          "href": "/sneakers/air-max"
+        },
+        {
+          "label": "Nike Dunk",
+          "href": "/sneakers/dunk"
+        },
+        {
+          "label": "Nike Ja",
+          "href": "/sneakers/nike-ja"
+        },
+        {
+          "label": "Nike Kobe",
+          "href": "/sneakers/kobe"
+        },
+        {
+          "label": "Nike Vomero 5",
+          "href": "/sneakers/vomero-5"
+        }
+      ]
+    },
+    {
+      "title": "About",
+      "links": [
+        {
+          "label": "How It Works",
+          "href": "/about/how-it-works"
+        },
+        {
+          "label": "Our Process",
+          "href": "/about/process"
+        },
+        {
+          "label": "Newsroom",
+          "href": "/about/newsroom"
+        },
+        {
+          "label": "Company",
+          "href": "/about/company"
+        },
+        {
+          "label": "Careers",
+          "href": "/about/careers"
+        },
+        {
+          "label": "Reviews",
+          "href": "/about/reviews"
+        }
+      ]
+    },
+    {
+      "title": "ASICS",
+      "links": [
+        {
+          "label": "Asics Gel 1130",
+          "href": "/sneakers/gel-1130"
+        },
+        {
+          "label": "Asics Kayano 14",
+          "href": "/sneakers/kayano-14"
+        },
+        {
+          "label": "Asics Gel-NYC",
+          "href": "/sneakers/gel-nyc"
+        },
+        {
+          "label": "Asics for Men",
+          "href": "/sneakers/asics-men"
+        },
+        {
+          "label": "Asics for Women",
+          "href": "/sneakers/asics-women"
+        },
+        {
+          "label": "Asics for Kids",
+          "href": "/sneakers/asics-kids"
+        }
+      ]
+    },
+    {
+      "title": "Sell",
+      "links": [
+        {
+          "label": "Selling Guide",
+          "href": "/sell/guide"
+        },
+        {
+          "label": "Professional Tools",
+          "href": "/sell/tools"
+        },
+        {
+          "label": "Sponsored Asks",
+          "href": "/sell/sponsored"
+        },
+        {
+          "label": "Developers",
+          "href": "/sell/developers"
+        }
+      ]
+    },
+    {
+      "title": "Fear of God",
+      "links": [
+        {
+          "label": "Essentials Hoodies",
+          "href": "/apparel/fog-hoodies"
+        },
+        {
+          "label": "Essentials Sweatpants",
+          "href": "/apparel/fog-sweatpants"
+        },
+        {
+          "label": "Essentials T-Shirts",
+          "href": "/apparel/fog-tshirts"
+        },
+        {
+          "label": "Essentials Pants",
+          "href": "/apparel/fog-pants"
+        },
+        {
+          "label": "Essentials Kids",
+          "href": "/apparel/fog-kids"
+        }
+      ]
+    },
+    {
+      "title": "Help",
+      "links": [
+        {
+          "label": "Help Center",
+          "href": "/help"
+        },
+        {
+          "label": "Contact Us",
+          "href": "/contact"
+        },
+        {
+          "label": "Returns",
+          "href": "/help/returns"
+        },
+        {
+          "label": "Product Suggestions",
+          "href": "/help/suggestions"
+        },
+        {
+          "label": "Size Guide",
+          "href": "/help/size-guide"
+        }
+      ]
+    }
+  ],
+  "social": [
+    {
+      "platform": "Twitter",
+      "href": "https://twitter.com"
+    },
+    {
+      "platform": "Facebook",
+      "href": "https://facebook.com"
+    },
+    {
+      "platform": "Instagram",
+      "href": "https://instagram.com"
+    },
+    {
+      "platform": "YouTube",
+      "href": "https://youtube.com"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Terms",
+      "href": "/terms"
+    },
+    {
+      "label": "Privacy",
+      "href": "/privacy"
+    },
+    {
+      "label": "Cookie Policy",
+      "href": "/cookies"
+    }
+  ],
+  "copyright": "© 2026 KickSneak. All rights reserved."
+}
