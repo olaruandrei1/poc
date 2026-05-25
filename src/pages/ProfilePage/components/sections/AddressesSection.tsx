@@ -13,7 +13,8 @@ interface Props {
 const EMPTY_ADDRESS: Omit<Address, 'id'> = {
     label: 'Home', firstName: '', lastName: '',
     street: '', city: '', county: '', zip: '',
-    country: 'Romania', phone: '', isDefault: false,
+    country: 'Romania', phone: '', alternateEmail: '',
+    isDefault: false,
 };
 
 export const AddressesSection = ({ profile, onProfileUpdate }: Props) => {
@@ -86,25 +87,41 @@ export const AddressesSection = ({ profile, onProfileUpdate }: Props) => {
                 </Button>
             </div>
 
-            {/* Contact rapide */}
-            <GlassCard>
-                <div className={styles.contactGrid}>
-                    <TextField
-                        label="Phone"
-                        value={profile.contact.phone}
-                        onChange={(e) => onProfileUpdate({ ...profile, contact: { ...profile.contact, phone: e.target.value } })}
-                        size="small"
-                        sx={sxField}
-                    />
-                    <TextField
-                        label="Alternate Email"
-                        value={profile.contact.alternateEmail}
-                        onChange={(e) => onProfileUpdate({ ...profile, contact: { ...profile.contact, alternateEmail: e.target.value } })}
-                        size="small"
-                        sx={sxField}
-                    />
-                </div>
-            </GlassCard>
+            {/* Contact rapid — de pe adresa default */}
+            {(() => {
+                const def = profile.addresses.find((a) => a.isDefault) ?? profile.addresses[0];
+                if (!def) return null;
+                return (
+                    <GlassCard>
+                        <div className={styles.contactGrid}>
+                            <TextField
+                                label="Phone (default address)"
+                                value={def.phone}
+                                onChange={(e) => onProfileUpdate({
+                                    ...profile,
+                                    addresses: profile.addresses.map((a) =>
+                                        a.id === def.id ? { ...a, phone: e.target.value } : a
+                                    ),
+                                })}
+                                size="small"
+                                sx={sxField}
+                            />
+                            <TextField
+                                label="Alternate Email (default address)"
+                                value={def.alternateEmail ?? ''}
+                                onChange={(e) => onProfileUpdate({
+                                    ...profile,
+                                    addresses: profile.addresses.map((a) =>
+                                        a.id === def.id ? { ...a, alternateEmail: e.target.value } : a
+                                    ),
+                                })}
+                                size="small"
+                                sx={sxField}
+                            />
+                        </div>
+                    </GlassCard>
+                );
+            })()}
 
             {/* Adrese */}
             <div className={styles.addrList}>
@@ -171,6 +188,7 @@ export const AddressesSection = ({ profile, onProfileUpdate }: Props) => {
                         {field('zip', 'ZIP Code')}
                         {field('country', 'Country')}
                         {field('phone', 'Phone')}
+                        {field('alternateEmail', 'Alternate Email (optional)')}
                     </div>
                 </DialogContent>
                 <DialogActions sx={{ padding: '12px 24px' }}>

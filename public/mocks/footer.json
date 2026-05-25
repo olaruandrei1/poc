@@ -5,27 +5,27 @@
       "links": [
         {
           "label": "Air Jordan 1",
-          "href": "/sneakers/jordan-1"
+          "href": "/search?q=air+jordan+1"
         },
         {
           "label": "Air Jordan 3",
-          "href": "/sneakers/jordan-3"
+          "href": "/search?q=air+jordan+3"
         },
         {
           "label": "Air Jordan 4",
-          "href": "/sneakers/jordan-4"
+          "href": "/search?q=air+jordan+4"
         },
         {
           "label": "Air Jordan 5",
-          "href": "/sneakers/jordan-5"
+          "href": "/search?q=air+jordan+5"
         },
         {
           "label": "Air Jordan 11",
-          "href": "/sneakers/jordan-11"
+          "href": "/search?q=air+jordan+11"
         },
         {
           "label": "Air Jordan 12",
-          "href": "/sneakers/jordan-12"
+          "href": "/search?q=air+jordan+12"
         }
       ]
     },
@@ -34,19 +34,19 @@
       "links": [
         {
           "label": "Jordan 3 Retro Black Cat (2025)",
-          "href": "/product/jordan-3-black-cat"
+          "href": "/search?q=jordan+3+black+cat"
         },
         {
           "label": "Jordan 5 Retro OG Black Metallic",
-          "href": "/product/jordan-5-black-metallic"
+          "href": "/search?q=jordan+5+black+metallic"
         },
         {
           "label": "Jordan 1 Retro High '85 OG Bred (2025)",
-          "href": "/product/jordan-1-bred-85"
+          "href": "/search?q=jordan+1+bred+85"
         },
         {
           "label": "Jordan 1 Retro High OG Black Toe",
-          "href": "/product/jordan-1-black-toe"
+          "href": "/search?q=jordan+1+black+toe"
         }
       ]
     },
@@ -55,27 +55,27 @@
       "links": [
         {
           "label": "Adidas Yeezy",
-          "href": "/brand/yeezy"
+          "href": "/search?brand=Yeezy"
         },
         {
           "label": "Yeezy Slides",
-          "href": "/sneakers/yeezy-slides"
+          "href": "/search?q=yeezy+slides"
         },
         {
           "label": "Yeezy Foam RNR",
-          "href": "/sneakers/yeezy-foam-rnr"
+          "href": "/search?q=yeezy+foam+rnr"
         },
         {
           "label": "Yeezy Boost 350",
-          "href": "/sneakers/yeezy-350"
+          "href": "/search?q=yeezy+350"
         },
         {
           "label": "Yeezy 700",
-          "href": "/sneakers/yeezy-700"
+          "href": "/search?q=yeezy+700"
         },
         {
           "label": "Campus 00s",
-          "href": "/sneakers/campus-00s"
+          "href": "/search?q=campus+00s"
         }
       ]
     },
@@ -84,27 +84,27 @@
       "links": [
         {
           "label": "Denim Tears",
-          "href": "/apparel/denim-tears"
+          "href": "/search?category=Apparel&brand=Denim+Tears"
         },
         {
           "label": "BAPE",
-          "href": "/apparel/bape"
+          "href": "/search?category=Apparel&brand=BAPE"
         },
         {
           "label": "Nike Apparel",
-          "href": "/apparel/nike"
+          "href": "/search?category=Apparel&brand=Nike"
         },
         {
           "label": "Supreme",
-          "href": "/apparel/supreme"
+          "href": "/search?category=Apparel&brand=Supreme"
         },
         {
           "label": "Travis Scott",
-          "href": "/apparel/travis-scott"
+          "href": "/search?category=Apparel&brand=Travis+Scott"
         },
         {
           "label": "Yeezy",
-          "href": "/apparel/yeezy"
+          "href": "/search?category=Apparel&brand=Yeezy"
         }
       ]
     },
@@ -113,27 +113,27 @@
       "links": [
         {
           "label": "New Balance 2002R",
-          "href": "/sneakers/nb-2002r"
+          "href": "/search?q=new+balance+2002r"
         },
         {
           "label": "New Balance 1906R",
-          "href": "/sneakers/nb-1906r"
+          "href": "/search?q=new+balance+1906r"
         },
         {
           "label": "New Balance 530",
-          "href": "/sneakers/nb-530"
+          "href": "/search?q=new+balance+530"
         },
         {
           "label": "New Balance 550",
-          "href": "/sneakers/nb-550"
+          "href": "/search?q=new+balance+550"
         },
         {
           "label": "New Balance 9060",
-          "href": "/sneakers/nb-9060"
+          "href": "/search?q=new+balance+9060"
         },
         {
           "label": "New Balance 990 V1",
-          "href": "/sneakers/nb-990-v1"
+          "href": "/search?q=new+balance+990"
         }
       ]
     },
@@ -142,27 +142,27 @@
       "links": [
         {
           "label": "Swatch X Omega",
-          "href": "/accessories/swatch-omega"
+          "href": "/search?category=Accessories&q=swatch+omega"
         },
         {
           "label": "Stanley",
-          "href": "/accessories/stanley"
+          "href": "/search?category=Accessories&q=stanley"
         },
         {
           "label": "Designer Sunglasses",
-          "href": "/accessories/sunglasses"
+          "href": "/search?category=Accessories&q=sunglasses"
         },
         {
           "label": "Louis Vuitton Accessories",
-          "href": "/accessories/lv"
+          "href": "/search?category=Accessories&brand=Louis+Vuitton"
         },
         {
           "label": "Gucci Accessories",
-          "href": "/accessories/gucci"
+          "href": "/search?category=Accessories&brand=Gucci"
         },
         {
           "label": "Supreme Accessories",
-          "href": "/accessories/supreme"
+          "href": "/search?category=Accessories&brand=Supreme"
         }
       ]
     },
@@ -171,27 +171,27 @@
       "links": [
         {
           "label": "Air Force 1",
-          "href": "/sneakers/air-force-1"
+          "href": "/search?q=air+force+1"
         },
         {
           "label": "Air Max",
-          "href": "/sneakers/air-max"
+          "href": "/search?q=air+max"
         },
         {
           "label": "Nike Dunk",
-          "href": "/sneakers/dunk"
+          "href": "/search?q=nike+dunk"
         },
         {
           "label": "Nike Ja",
-          "href": "/sneakers/nike-ja"
+          "href": "/search?q=nike+ja"
         },
         {
           "label": "Nike Kobe",
-          "href": "/sneakers/kobe"
+          "href": "/search?q=kobe"
         },
         {
           "label": "Nike Vomero 5",
-          "href": "/sneakers/vomero-5"
+          "href": "/search?q=vomero+5"
         }
       ]
     },
@@ -200,27 +200,27 @@
       "links": [
         {
           "label": "How It Works",
-          "href": "/about/how-it-works"
+          "href": "/about"
         },
         {
           "label": "Our Process",
-          "href": "/about/process"
+          "href": "/about"
         },
         {
           "label": "Newsroom",
-          "href": "/about/newsroom"
+          "href": "/about"
         },
         {
           "label": "Company",
-          "href": "/about/company"
+          "href": "/about"
         },
         {
           "label": "Careers",
-          "href": "/about/careers"
+          "href": "/about"
         },
         {
           "label": "Reviews",
-          "href": "/about/reviews"
+          "href": "/about"
         }
       ]
     },
@@ -229,27 +229,27 @@
       "links": [
         {
           "label": "Asics Gel 1130",
-          "href": "/sneakers/gel-1130"
+          "href": "/search?q=gel+1130"
         },
         {
           "label": "Asics Kayano 14",
-          "href": "/sneakers/kayano-14"
+          "href": "/search?q=kayano+14"
         },
         {
           "label": "Asics Gel-NYC",
-          "href": "/sneakers/gel-nyc"
+          "href": "/search?q=gel+nyc"
         },
         {
           "label": "Asics for Men",
-          "href": "/sneakers/asics-men"
+          "href": "/search?brand=ASICS&gender=Men"
         },
         {
           "label": "Asics for Women",
-          "href": "/sneakers/asics-women"
+          "href": "/search?brand=ASICS&gender=Women"
         },
         {
           "label": "Asics for Kids",
-          "href": "/sneakers/asics-kids"
+          "href": "/search?brand=ASICS&gender=Kids"
         }
       ]
     },
@@ -258,19 +258,19 @@
       "links": [
         {
           "label": "Selling Guide",
-          "href": "/sell/guide"
+          "href": "/profile?section=seller-listings"
         },
         {
           "label": "Professional Tools",
-          "href": "/sell/tools"
+          "href": "/profile?section=seller-listings"
         },
         {
           "label": "Sponsored Asks",
-          "href": "/sell/sponsored"
+          "href": "/profile?section=seller-listings"
         },
         {
           "label": "Developers",
-          "href": "/sell/developers"
+          "href": "/about"
         }
       ]
     },
@@ -279,23 +279,23 @@
       "links": [
         {
           "label": "Essentials Hoodies",
-          "href": "/apparel/fog-hoodies"
+          "href": "/search?category=Apparel&brand=FOG+Essentials&q=hoodies"
         },
         {
           "label": "Essentials Sweatpants",
-          "href": "/apparel/fog-sweatpants"
+          "href": "/search?category=Apparel&brand=FOG+Essentials&q=sweatpants"
         },
         {
           "label": "Essentials T-Shirts",
-          "href": "/apparel/fog-tshirts"
+          "href": "/search?category=Apparel&brand=FOG+Essentials&q=t-shirts"
         },
         {
           "label": "Essentials Pants",
-          "href": "/apparel/fog-pants"
+          "href": "/search?category=Apparel&brand=FOG+Essentials&q=pants"
         },
         {
           "label": "Essentials Kids",
-          "href": "/apparel/fog-kids"
+          "href": "/search?category=Apparel&brand=FOG+Essentials&gender=Kids"
         }
       ]
     },
@@ -304,23 +304,23 @@
       "links": [
         {
           "label": "Help Center",
-          "href": "/help"
+          "href": "/about"
         },
         {
           "label": "Contact Us",
-          "href": "/contact"
+          "href": "/profile?section=chat"
         },
         {
           "label": "Returns",
-          "href": "/help/returns"
+          "href": "/profile?section=returns"
         },
         {
           "label": "Product Suggestions",
-          "href": "/help/suggestions"
+          "href": "/search"
         },
         {
           "label": "Size Guide",
-          "href": "/help/size-guide"
+          "href": "/profile?section=sizes"
         }
       ]
     }
@@ -350,11 +350,11 @@
     },
     {
       "label": "Privacy",
-      "href": "/privacy"
+      "href": "/terms"
     },
     {
       "label": "Cookie Policy",
-      "href": "/cookies"
+      "href": "/terms"
     }
   ],
   "copyright": "© 2026 KickSneak. All rights reserved."

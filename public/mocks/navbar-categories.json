@@ -7,23 +7,23 @@
       {
         "title": "Popular Brands",
         "items": [
-          { "label": "adidas", "href": "/brand/adidas" },
-          { "label": "Air Jordan", "href": "/brand/air-jordan" },
-          { "label": "ASICS", "href": "/brand/asics" },
-          { "label": "New Balance", "href": "/brand/new-balance" },
-          { "label": "Nike", "href": "/brand/nike" },
-          { "label": "Puma", "href": "/brand/puma" },
-          { "label": "Yeezy", "href": "/brand/yeezy" }
+          { "label": "adidas", "href": "/search?brand=adidas" },
+          { "label": "Air Jordan", "href": "/search?brand=Air+Jordan" },
+          { "label": "ASICS", "href": "/search?brand=ASICS" },
+          { "label": "New Balance", "href": "/search?brand=New+Balance" },
+          { "label": "Nike", "href": "/search?brand=Nike" },
+          { "label": "Puma", "href": "/search?brand=Puma" },
+          { "label": "Yeezy", "href": "/search?brand=Yeezy" }
         ]
       },
       {
         "title": "Luxury Brands",
         "items": [
-          { "label": "Balenciaga", "href": "/brand/balenciaga" },
-          { "label": "Gucci", "href": "/brand/gucci" },
-          { "label": "Dior", "href": "/brand/dior" },
-          { "label": "Prada", "href": "/brand/prada" },
-          { "label": "Versace", "href": "/brand/versace" }
+          { "label": "Balenciaga", "href": "/search?brand=Balenciaga" },
+          { "label": "Gucci", "href": "/search?brand=Gucci" },
+          { "label": "Dior", "href": "/search?brand=Dior" },
+          { "label": "Prada", "href": "/search?brand=Prada" },
+          { "label": "Versace", "href": "/search?brand=Versace" }
         ]
       }
     ]
@@ -36,19 +36,19 @@
       {
         "title": "Hot Right Now",
         "items": [
-          { "label": "adidas Samba", "href": "/product/adidas-samba" },
-          { "label": "Jordan 1 Low", "href": "/product/jordan-1-low" },
-          { "label": "New Balance 9060", "href": "/product/nb-9060" },
-          { "label": "Nike Air Max 97", "href": "/product/air-max-97" },
-          { "label": "Nike SB Dunk", "href": "/product/sb-dunk" }
+          { "label": "adidas Samba", "href": "/search?q=adidas+samba" },
+          { "label": "Jordan 1 Low", "href": "/search?q=jordan+1+low" },
+          { "label": "New Balance 9060", "href": "/search?q=new+balance+9060" },
+          { "label": "Nike Air Max 97", "href": "/search?q=air+max+97" },
+          { "label": "Nike SB Dunk", "href": "/search?q=sb+dunk" }
         ]
       },
       {
         "title": "Upcoming Releases",
         "items": [
-          { "label": "Jordan 4 Military Blue", "href": "/releases/jordan-4-military" },
-          { "label": "Yeezy 350 V3", "href": "/releases/yeezy-350-v3" },
-          { "label": "Nike Air Max 2025", "href": "/releases/air-max-2025" }
+          { "label": "Jordan 4 Military Blue", "href": "/search?q=jordan+4+military+blue" },
+          { "label": "Yeezy 350 V3", "href": "/search?q=yeezy+350+v3" },
+          { "label": "Nike Air Max 2025", "href": "/search?q=air+max+2025" }
         ]
       }
     ]
@@ -61,10 +61,10 @@
       {
         "title": "Just Dropped",
         "items": [
-          { "label": "ASICS Gel Kayano 14", "href": "/product/gel-kayano-14" },
-          { "label": "Jordan 5 Aqua", "href": "/product/jordan-5-aqua" },
-          { "label": "Nike Kobes", "href": "/product/nike-kobes" },
-          { "label": "New Balance 327", "href": "/product/nb-327" }
+          { "label": "ASICS Gel Kayano 14", "href": "/search?q=gel+kayano+14" },
+          { "label": "Jordan 5 Aqua", "href": "/search?q=jordan+5+aqua" },
+          { "label": "Nike Kobes", "href": "/search?q=kobe" },
+          { "label": "New Balance 327", "href": "/search?q=new+balance+327" }
         ]
       }
     ]
@@ -77,12 +77,12 @@
       {
         "title": "Steals & Deals",
         "items": [
-          { "label": "Under $50", "href": "/deals/under-50" },
-          { "label": "Under $100", "href": "/deals/under-100" },
-          { "label": "Under $150", "href": "/deals/under-150" },
-          { "label": "Under $200", "href": "/deals/under-200" },
-          { "label": "Below Retail", "href": "/deals/below-retail" },
-          { "label": "Xpress Ship", "href": "/deals/xpress-ship" }
+          { "label": "Under $50", "href": "/search?priceMax=50" },
+          { "label": "Under $100", "href": "/search?priceMax=100" },
+          { "label": "Under $150", "href": "/search?priceMax=150" },
+          { "label": "Under $200", "href": "/search?priceMax=200" },
+          { "label": "Below Retail", "href": "/search?sort=price_asc" },
+          { "label": "Xpress Ship", "href": "/search?xpress=true" }
         ]
       }
     ]
@@ -95,39 +95,39 @@
       {
         "title": "Men's Sneakers",
         "items": [
-          { "label": "adidas", "href": "/men/sneakers/adidas" },
-          { "label": "Air Jordan", "href": "/men/sneakers/air-jordan" },
-          { "label": "Nike", "href": "/men/sneakers/nike" },
-          { "label": "New Balance", "href": "/men/sneakers/new-balance" },
-          { "label": "Yeezy", "href": "/men/sneakers/yeezy" }
+          { "label": "adidas", "href": "/search?gender=Men&category=Sneakers&brand=adidas" },
+          { "label": "Air Jordan", "href": "/search?gender=Men&category=Sneakers&brand=Air+Jordan" },
+          { "label": "Nike", "href": "/search?gender=Men&category=Sneakers&brand=Nike" },
+          { "label": "New Balance", "href": "/search?gender=Men&category=Sneakers&brand=New+Balance" },
+          { "label": "Yeezy", "href": "/search?gender=Men&category=Sneakers&brand=Yeezy" }
         ]
       },
       {
         "title": "Men's Apparel",
         "items": [
-          { "label": "FOG Essentials", "href": "/men/apparel/fog" },
-          { "label": "Supreme Apparel", "href": "/men/apparel/supreme" },
-          { "label": "Nike Apparel", "href": "/men/apparel/nike" },
-          { "label": "BAPE Apparel", "href": "/men/apparel/bape" }
+          { "label": "FOG Essentials", "href": "/search?gender=Men&category=Apparel&brand=FOG+Essentials" },
+          { "label": "Supreme Apparel", "href": "/search?gender=Men&category=Apparel&brand=Supreme" },
+          { "label": "Nike Apparel", "href": "/search?gender=Men&category=Apparel&brand=Nike" },
+          { "label": "BAPE Apparel", "href": "/search?gender=Men&category=Apparel&brand=BAPE" }
         ]
       },
       {
         "title": "Men's Accessories",
         "items": [
-          { "label": "Casio G-Shock", "href": "/men/accessories/g-shock" },
-          { "label": "Gucci", "href": "/men/accessories/gucci" },
-          { "label": "Louis Vuitton", "href": "/men/accessories/lv" },
-          { "label": "Wallets", "href": "/men/accessories/wallets" }
+          { "label": "Casio G-Shock", "href": "/search?gender=Men&category=Accessories&brand=Casio+G-Shock" },
+          { "label": "Gucci", "href": "/search?gender=Men&category=Accessories&brand=Gucci" },
+          { "label": "Louis Vuitton", "href": "/search?gender=Men&category=Accessories&brand=Louis+Vuitton" },
+          { "label": "Wallets", "href": "/search?gender=Men&category=Accessories&q=wallets" }
         ]
       },
       {
         "title": "Shop by Category",
         "items": [
-          { "label": "T-Shirts", "href": "/men/category/tshirts" },
-          { "label": "Jackets & Coats", "href": "/men/category/jackets" },
-          { "label": "Bottoms", "href": "/men/category/bottoms" },
-          { "label": "Sunglasses", "href": "/men/category/sunglasses" },
-          { "label": "Watches", "href": "/men/category/watches" }
+          { "label": "T-Shirts", "href": "/search?gender=Men&category=Apparel&q=t-shirts" },
+          { "label": "Jackets & Coats", "href": "/search?gender=Men&category=Apparel&q=jackets" },
+          { "label": "Bottoms", "href": "/search?gender=Men&category=Apparel&q=bottoms" },
+          { "label": "Sunglasses", "href": "/search?gender=Men&category=Accessories&q=sunglasses" },
+          { "label": "Watches", "href": "/search?gender=Men&category=Accessories&q=watches" }
         ]
       }
     ]
@@ -140,26 +140,26 @@
       {
         "title": "Women's Sneakers",
         "items": [
-          { "label": "Nike", "href": "/women/sneakers/nike" },
-          { "label": "adidas", "href": "/women/sneakers/adidas" },
-          { "label": "New Balance", "href": "/women/sneakers/new-balance" },
-          { "label": "Converse", "href": "/women/sneakers/converse" }
+          { "label": "Nike", "href": "/search?gender=Women&category=Sneakers&brand=Nike" },
+          { "label": "adidas", "href": "/search?gender=Women&category=Sneakers&brand=adidas" },
+          { "label": "New Balance", "href": "/search?gender=Women&category=Sneakers&brand=New+Balance" },
+          { "label": "Converse", "href": "/search?gender=Women&category=Sneakers&brand=Converse" }
         ]
       },
       {
         "title": "Women's Apparel",
         "items": [
-          { "label": "Nike Apparel", "href": "/women/apparel/nike" },
-          { "label": "Supreme", "href": "/women/apparel/supreme" },
-          { "label": "FOG Essentials", "href": "/women/apparel/fog" }
+          { "label": "Nike Apparel", "href": "/search?gender=Women&category=Apparel&brand=Nike" },
+          { "label": "Supreme", "href": "/search?gender=Women&category=Apparel&brand=Supreme" },
+          { "label": "FOG Essentials", "href": "/search?gender=Women&category=Apparel&brand=FOG+Essentials" }
         ]
       },
       {
         "title": "Women's Accessories",
         "items": [
-          { "label": "Bags", "href": "/women/accessories/bags" },
-          { "label": "Jewelry", "href": "/women/accessories/jewelry" },
-          { "label": "Sunglasses", "href": "/women/accessories/sunglasses" }
+          { "label": "Bags", "href": "/search?gender=Women&category=Accessories&q=bags" },
+          { "label": "Jewelry", "href": "/search?gender=Women&category=Accessories&q=jewelry" },
+          { "label": "Sunglasses", "href": "/search?gender=Women&category=Accessories&q=sunglasses" }
         ]
       }
     ]
@@ -172,16 +172,16 @@
       {
         "title": "Kids' Sneakers",
         "items": [
-          { "label": "Nike Kids", "href": "/kids/sneakers/nike" },
-          { "label": "adidas Kids", "href": "/kids/sneakers/adidas" },
-          { "label": "Jordan Kids", "href": "/kids/sneakers/jordan" }
+          { "label": "Nike Kids", "href": "/search?gender=Kids&category=Sneakers&brand=Nike" },
+          { "label": "adidas Kids", "href": "/search?gender=Kids&category=Sneakers&brand=adidas" },
+          { "label": "Jordan Kids", "href": "/search?gender=Kids&category=Sneakers&brand=Air+Jordan" }
         ]
       },
       {
         "title": "Kids' Apparel",
         "items": [
-          { "label": "Nike Apparel", "href": "/kids/apparel/nike" },
-          { "label": "Jordan Apparel", "href": "/kids/apparel/jordan" }
+          { "label": "Nike Apparel", "href": "/search?gender=Kids&category=Apparel&brand=Nike" },
+          { "label": "Jordan Apparel", "href": "/search?gender=Kids&category=Apparel&brand=Air+Jordan" }
         ]
       }
     ]
@@ -194,40 +194,40 @@
       {
         "title": "Popular Brands",
         "items": [
-          { "label": "adidas", "href": "/sneakers/adidas" },
-          { "label": "Air Jordan", "href": "/sneakers/air-jordan" },
-          { "label": "ASICS", "href": "/sneakers/asics" },
-          { "label": "Nike", "href": "/sneakers/nike" },
-          { "label": "Yeezy", "href": "/sneakers/yeezy" }
+          { "label": "adidas", "href": "/search?category=Sneakers&brand=adidas" },
+          { "label": "Air Jordan", "href": "/search?category=Sneakers&brand=Air+Jordan" },
+          { "label": "ASICS", "href": "/search?category=Sneakers&brand=ASICS" },
+          { "label": "Nike", "href": "/search?category=Sneakers&brand=Nike" },
+          { "label": "Yeezy", "href": "/search?category=Sneakers&brand=Yeezy" }
         ]
       },
       {
         "title": "Top Models",
         "items": [
-          { "label": "adidas Samba", "href": "/sneakers/adidas-samba" },
-          { "label": "Jordan 4", "href": "/sneakers/jordan-4" },
-          { "label": "Jordan 11", "href": "/sneakers/jordan-11" },
-          { "label": "New Balance 9060", "href": "/sneakers/nb-9060" },
-          { "label": "Nike Air Max", "href": "/sneakers/air-max" },
-          { "label": "Nike SB Dunk", "href": "/sneakers/sb-dunk" }
+          { "label": "adidas Samba", "href": "/search?q=adidas+samba" },
+          { "label": "Jordan 4", "href": "/search?q=jordan+4" },
+          { "label": "Jordan 11", "href": "/search?q=jordan+11" },
+          { "label": "New Balance 9060", "href": "/search?q=new+balance+9060" },
+          { "label": "Nike Air Max", "href": "/search?q=air+max" },
+          { "label": "Nike SB Dunk", "href": "/search?q=sb+dunk" }
         ]
       },
       {
         "title": "Steals & Deals",
         "items": [
-          { "label": "Under $50", "href": "/sneakers/deals/under-50" },
-          { "label": "Under $100", "href": "/sneakers/deals/under-100" },
-          { "label": "Below Retail", "href": "/sneakers/deals/below-retail" },
-          { "label": "Upcoming Releases", "href": "/sneakers/releases" }
+          { "label": "Under $50", "href": "/search?category=Sneakers&priceMax=50" },
+          { "label": "Under $100", "href": "/search?category=Sneakers&priceMax=100" },
+          { "label": "Below Retail", "href": "/search?category=Sneakers&sort=price_asc" },
+          { "label": "Upcoming Releases", "href": "/search?category=Sneakers&q=upcoming" }
         ]
       },
       {
         "title": "Luxury Brands",
         "items": [
-          { "label": "Alexander McQueen", "href": "/sneakers/alexander-mcqueen" },
-          { "label": "Balenciaga Runners", "href": "/sneakers/balenciaga" },
-          { "label": "OFF-WHITE", "href": "/sneakers/off-white" },
-          { "label": "Rick Owens", "href": "/sneakers/rick-owens" }
+          { "label": "Alexander McQueen", "href": "/search?category=Sneakers&brand=Alexander+McQueen" },
+          { "label": "Balenciaga Runners", "href": "/search?category=Sneakers&brand=Balenciaga" },
+          { "label": "OFF-WHITE", "href": "/search?category=Sneakers&brand=OFF-WHITE" },
+          { "label": "Rick Owens", "href": "/search?category=Sneakers&brand=Rick+Owens" }
         ]
       }
     ]
@@ -240,20 +240,20 @@
       {
         "title": "Shop by Category",
         "items": [
-          { "label": "Slides & Sandals", "href": "/shoes/slides" },
-          { "label": "Boots", "href": "/shoes/boots" },
-          { "label": "Loafers", "href": "/shoes/loafers" },
-          { "label": "Clogs", "href": "/shoes/clogs" },
-          { "label": "Flats", "href": "/shoes/flats" }
+          { "label": "Slides & Sandals", "href": "/search?category=Shoes&q=slides" },
+          { "label": "Boots", "href": "/search?category=Shoes&q=boots" },
+          { "label": "Loafers", "href": "/search?category=Shoes&q=loafers" },
+          { "label": "Clogs", "href": "/search?category=Shoes&q=clogs" },
+          { "label": "Flats", "href": "/search?category=Shoes&q=flats" }
         ]
       },
       {
         "title": "Top Brands",
         "items": [
-          { "label": "Birkenstock", "href": "/shoes/birkenstock" },
-          { "label": "Dr. Martens", "href": "/shoes/dr-martens" },
-          { "label": "Moon Boot", "href": "/shoes/moon-boot" },
-          { "label": "UGG", "href": "/shoes/ugg" }
+          { "label": "Birkenstock", "href": "/search?category=Shoes&brand=Birkenstock" },
+          { "label": "Dr. Martens", "href": "/search?category=Shoes&brand=Dr.+Martens" },
+          { "label": "Moon Boot", "href": "/search?category=Shoes&brand=Moon+Boot" },
+          { "label": "UGG", "href": "/search?category=Shoes&brand=UGG" }
         ]
       }
     ]
@@ -266,19 +266,19 @@
       {
         "title": "Top Brands",
         "items": [
-          { "label": "BAPE", "href": "/apparel/bape" },
-          { "label": "FOG Essentials", "href": "/apparel/fog" },
-          { "label": "Supreme", "href": "/apparel/supreme" },
-          { "label": "Travis Scott", "href": "/apparel/travis-scott" }
+          { "label": "BAPE", "href": "/search?category=Apparel&brand=BAPE" },
+          { "label": "FOG Essentials", "href": "/search?category=Apparel&brand=FOG+Essentials" },
+          { "label": "Supreme", "href": "/search?category=Apparel&brand=Supreme" },
+          { "label": "Travis Scott", "href": "/search?category=Apparel&brand=Travis+Scott" }
         ]
       },
       {
         "title": "Categories",
         "items": [
-          { "label": "T-Shirts", "href": "/apparel/tshirts" },
-          { "label": "Hoodies", "href": "/apparel/hoodies" },
-          { "label": "Jackets", "href": "/apparel/jackets" },
-          { "label": "Pants", "href": "/apparel/pants" }
+          { "label": "T-Shirts", "href": "/search?category=Apparel&q=t-shirts" },
+          { "label": "Hoodies", "href": "/search?category=Apparel&q=hoodies" },
+          { "label": "Jackets", "href": "/search?category=Apparel&q=jackets" },
+          { "label": "Pants", "href": "/search?category=Apparel&q=pants" }
         ]
       }
     ]
@@ -291,20 +291,20 @@
       {
         "title": "Categories",
         "items": [
-          { "label": "Bags", "href": "/accessories/bags" },
-          { "label": "Hats", "href": "/accessories/hats" },
-          { "label": "Sunglasses", "href": "/accessories/sunglasses" },
-          { "label": "Watches", "href": "/accessories/watches" },
-          { "label": "Wallets", "href": "/accessories/wallets" }
+          { "label": "Bags", "href": "/search?category=Accessories&q=bags" },
+          { "label": "Hats", "href": "/search?category=Accessories&q=hats" },
+          { "label": "Sunglasses", "href": "/search?category=Accessories&q=sunglasses" },
+          { "label": "Watches", "href": "/search?category=Accessories&q=watches" },
+          { "label": "Wallets", "href": "/search?category=Accessories&q=wallets" }
         ]
       },
       {
         "title": "Top Brands",
         "items": [
-          { "label": "Casio G-Shock", "href": "/accessories/g-shock" },
-          { "label": "Gucci", "href": "/accessories/gucci" },
-          { "label": "Louis Vuitton", "href": "/accessories/lv" },
-          { "label": "OFF-WHITE", "href": "/accessories/off-white" }
+          { "label": "Casio G-Shock", "href": "/search?category=Accessories&brand=Casio+G-Shock" },
+          { "label": "Gucci", "href": "/search?category=Accessories&brand=Gucci" },
+          { "label": "Louis Vuitton", "href": "/search?category=Accessories&brand=Louis+Vuitton" },
+          { "label": "OFF-WHITE", "href": "/search?category=Accessories&brand=OFF-WHITE" }
         ]
       }
     ]
@@ -317,9 +317,9 @@
       {
         "title": "Categories",
         "items": [
-          { "label": "Figures", "href": "/collectibles/figures" },
-          { "label": "Art Prints", "href": "/collectibles/art-prints" },
-          { "label": "Plush", "href": "/collectibles/plush" }
+          { "label": "Figures", "href": "/search?category=Collectibles&q=figures" },
+          { "label": "Art Prints", "href": "/search?category=Collectibles&q=art+prints" },
+          { "label": "Plush", "href": "/search?category=Collectibles&q=plush" }
         ]
       }
     ]
@@ -332,9 +332,9 @@
       {
         "title": "Categories",
         "items": [
-          { "label": "Pokemon", "href": "/trading-cards/pokemon" },
-          { "label": "NBA Cards", "href": "/trading-cards/nba" },
-          { "label": "Football Cards", "href": "/trading-cards/football" }
+          { "label": "Pokemon", "href": "/search?category=Trading+Cards&q=pokemon" },
+          { "label": "NBA Cards", "href": "/search?category=Trading+Cards&q=nba" },
+          { "label": "Football Cards", "href": "/search?category=Trading+Cards&q=football" }
         ]
       }
     ]

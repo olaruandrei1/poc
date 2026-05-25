@@ -26,11 +26,15 @@ export const SettingsSection = ({ profile }: Props) => {
     });
 
     const handleDeleteAccount = async () => {
-        if (confirm !== 'DELETE') return;
+    if (confirm !== 'DELETE') return;
+    try {
+        await firebaseService.deleteAccount();
+    } catch {
         await firebaseService.logout();
-        setUser(null);
-        navigate('/');
-    };
+    }
+    setUser(null);
+    navigate('/');
+};
 
     const sxSwitch = {
         '& .MuiSwitch-switchBase.Mui-checked': { color: 'var(--color-secondary)' },

@@ -4,6 +4,7 @@ import {
     useRef,
     useCallback,
 } from 'react';
+import { useNavigate } from 'react-router-dom';
 import type { ProductItem } from '../../../types/product';
 import { ProductChip } from '../../atoms/ProductChip/ProductChip';
 import { cachedFetch } from '../../../services/cachedFetchService';
@@ -25,6 +26,7 @@ export const SearchBox = ({
     onClose,
     autoFocus = false,
 }: SearchBoxProps) => {
+    const navigate = useNavigate();
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<ProductItem[]>([]);
     const [displayed, setDisplayed] = useState<ProductItem[]>([]);
@@ -79,6 +81,14 @@ export const SearchBox = ({
         setResults(newResults);
     }, [displayed]);
 
+    const goToSearch = useCallback((q: string) => {
+        if (!q.trim()) return;
+        closeDropdown();
+        setQuery('');
+        onClose?.();
+        navigate(`/search?q=${encodeURIComponent(q.trim())}`);
+    }, [navigate, onClose]);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const val = e.target.value;
         setQuery(val);
@@ -90,12 +100,16 @@ export const SearchBox = ({
             return;
         }
 
+        // Live search — minim 3 caractere ca Elasticsearch
+        if (val.trim().length < 3) return;
+
         debounceRef.current = setTimeout(() => {
+            const q = val.toLowerCase();
             const filtered = allMockResults.filter(
                 (p) =>
-                    p.name.toLowerCase().includes(val.toLowerCase()) ||
-                    p.brand.toLowerCase().includes(val.toLowerCase()) ||
-                    p.category.toLowerCase().includes(val.toLowerCase())
+                    p.name.toLowerCase().includes(q) ||
+                    p.brand.toLowerCase().includes(q) ||
+                    p.category.toLowerCase().includes(q)
             );
 
             if (filtered.length > 0) {
@@ -122,6 +136,9 @@ export const SearchBox = ({
     };
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            goToSearch(query);
+        }
         if (e.key === 'Escape') {
             closeDropdown();
             onClose?.();
@@ -161,14 +178,12 @@ export const SearchBox = ({
             </div>
 
             {isOpen && (
-                <div
-                    className={`
-            ${styles.dropdown}
-            ${dropdownAnim ? styles.dropdownOpen : ''}
-            ${isExiting ? styles.dropdownExit : ''}
-            ${variant === 'mobile' ? styles.dropdownMobile : ''}
-          `}
-                >
+                <div className={`
+                    ${styles.dropdown}
+                    ${dropdownAnim ? styles.dropdownOpen : ''}
+                    ${isExiting ? styles.dropdownExit : ''}
+                    ${variant === 'mobile' ? styles.dropdownMobile : ''}
+                `}>
                     <div className={styles.dropdownHeader}>
                         <span className={styles.dropdownLabel}>
                             {results.length} result{results.length !== 1 ? 's' : ''} for
@@ -189,7 +204,10 @@ export const SearchBox = ({
 
                     {results.length > 6 && (
                         <div className={styles.dropdownFooter}>
-                            <button className={styles.seeAll}>
+                            <button
+                                className={styles.seeAll}
+                                onClick={() => goToSearch(query)}
+                            >
                                 See all {results.length} results →
                             </button>
                         </div>

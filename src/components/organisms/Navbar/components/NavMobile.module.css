@@ -1,4 +1,5 @@
 /* ── Bottom nav ── */
+/* ── Bottom nav ── */
 .nav {
   position: fixed;
   bottom: 0;
@@ -10,7 +11,7 @@
   border-top: 1px solid var(--color-border);
   backdrop-filter: blur(20px);
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-around;
   padding: 0 4px;
   padding-bottom: env(safe-area-inset-bottom);
@@ -21,76 +22,70 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 3px;
   background: none;
   border: none;
   cursor: pointer;
   color: var(--color-text-muted);
-  padding: 4px 0;
-  transition: color 0.18s ease;
+  padding: 0 0 8px;
   position: relative;
   height: 100%;
+  transition: color 0.2s ease;
 }
 
-.tab.activeTab {
-  color: var(--color-accent);
-}
-
-/* Tab cu search — spatiu extra sus pentru bubble */
-.searchTab {
-  padding-top: 14px;
-}
-
-/* Icon wrap normal */
+/* Icon wrap — base */
 .iconWrap {
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  border-radius: 50%;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background 0.2s ease;
 }
 
 .iconWrap svg {
   width: 20px;
   height: 20px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Search bubble — iese deasupra navbar */
-.searchBubble {
-  position: absolute;
-  top: -26px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+/* Active tab — icon plutește în sus */
+.iconWrapActive {
+  transform: translateY(-14px);
   background: var(--color-primary);
-  border: 3px solid var(--color-bg);
+  border: 2px solid var(--color-border);
+  box-shadow: 0 4px 16px var(--color-shadow);
+}
+
+.iconWrapActive svg {
   color: var(--color-accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 20px var(--color-shadow);
-  transition: background 0.2s ease, transform 0.2s ease;
+  transform: scale(1.1);
 }
 
-.searchBubble svg {
-  width: 22px;
-  height: 22px;
+/* Label */
+.label {
+  font-size: 0.58rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  transition: color 0.2s ease, opacity 0.2s ease;
+  line-height: 1;
 }
 
-.searchBubbleActive {
-  background: var(--color-secondary);
-  transform: translateX(-50%) scale(1.08);
+.labelActive {
+  color: var(--color-accent);
+  font-weight: 600;
 }
 
 /* Badge */
 .badge {
   position: absolute;
-  top: -4px;
-  right: -6px;
+  top: -2px;
+  right: -2px;
   min-width: 15px;
   height: 15px;
   border-radius: 8px;
@@ -104,22 +99,6 @@
   padding: 0 3px;
   font-family: var(--font-display);
 }
-
-/* Label */
-.label {
-  font-size: 0.58rem;
-  font-family: var(--font-body);
-  font-weight: 500;
-  color: var(--color-text-muted);
-  transition: color 0.18s ease;
-  line-height: 1;
-}
-
-.labelActive {
-  color: var(--color-accent);
-  font-weight: 600;
-}
-
 /* ── Search overlay ── */
 .searchOverlay {
   position: fixed;

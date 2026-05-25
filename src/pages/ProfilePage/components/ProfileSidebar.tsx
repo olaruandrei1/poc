@@ -48,7 +48,7 @@ export const ProfileSidebar = ({
                     {profile.photoURL
                         ? <img src={profile.photoURL} alt="avatar" className={styles.avatar} />
                         : <div className={styles.avatarFallback}>
-                            {profile.displayName[0].toUpperCase()}
+                            {(profile.displayName ?? 'U')[0].toUpperCase()}
                         </div>
                     }
                     {profile.isSeller && profile.seller?.verified && (

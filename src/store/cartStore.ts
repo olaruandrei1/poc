@@ -9,6 +9,8 @@ interface CartState {
     setItems: (items: CartItem[]) => void;
     addItem: (item: CartItem) => void;
     removeItem: (id: string) => void;
+    clearCart: () => void;  // adăugat
+
     fetchCart: () => void;
 }
 
@@ -18,6 +20,11 @@ export const useCartStore = create<CartState>((set, get) => ({
     setItems: (items) => {
         localStorageService.set('cart_items', items);
         set({ items });
+    },
+
+    clearCart: () => {
+        localStorageService.remove('cart_items');
+        set({ items: [] });
     },
 
     addItem: (item) => {

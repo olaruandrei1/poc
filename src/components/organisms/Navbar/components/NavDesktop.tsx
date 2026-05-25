@@ -57,7 +57,7 @@ export const NavDesktop = ({ categories }: NavDesktopProps) => {
 
                     <button
                         className={styles.sellerBtn}
-                        onClick={() => navigate(user ? '/profile/seller' : '/become-seller')}
+                        onClick={() => navigate(user ? '/profile?section=seller-listings' : '/login')}
                     >
                         {user ? 'Seller Dashboard' : 'Become a Seller'}
                     </button>
@@ -70,6 +70,7 @@ export const NavDesktop = ({ categories }: NavDesktopProps) => {
                         <button
                             className={`${styles.iconBtn} ${favoritesOpen ? styles.active : ''}`}
                             aria-label="Favorites"
+                            onClick={() => navigate('/favorites')}
                         >
                             <svg viewBox="0 0 24 24" fill={favoritesOpen ? 'currentColor' : 'none'}>
                                 <path
@@ -113,6 +114,7 @@ export const NavDesktop = ({ categories }: NavDesktopProps) => {
                         <button
                             className={`${styles.iconBtn} ${cartOpen ? styles.active : ''}`}
                             aria-label="Cart"
+                            onClick={() => navigate('/cart')}
                         >
                             <svg viewBox="0 0 24 24" fill="none">
                                 <path
@@ -221,15 +223,17 @@ export const NavDesktop = ({ categories }: NavDesktopProps) => {
                         >
                             <button
                                 className={`
-                  ${styles.catBtn}
-                  ${cat.highlight ? styles.highlight : ''}
-                  ${activeMegaMenu === cat.id ? styles.catActive : ''}
-                `}
+                                    ${styles.catBtn}
+                                    ${cat.highlight ? styles.highlight : ''}
+                                    ${activeMegaMenu === cat.id ? styles.catActive : ''}
+                                `}
+                                onClick={() => {
+                                    navigate(`/search?category=${encodeURIComponent(cat.label)}`);
+                                    setActiveMegaMenu(null);
+                                }}
                             >
                                 {cat.label}
-                                {activeMegaMenu === cat.id && (
-                                    <span className={styles.catUnderline} />
-                                )}
+                                {activeMegaMenu === cat.id && <span className={styles.catUnderline} />}
                             </button>
                             {activeMegaMenu === cat.id && (
                                 <MegaMenu

@@ -56,6 +56,12 @@ export const firebaseService = {
         });
     },
 
+    async deleteAccount(): Promise<void> {
+        const user = auth.currentUser;
+        if (user) await user.delete();
+        localStorageService.remove('auth_user');
+    },
+
     getCachedUser(): AuthUser | null {
         return localStorageService.get<AuthUser>('auth_user');
     },

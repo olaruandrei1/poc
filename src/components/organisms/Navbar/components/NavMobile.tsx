@@ -42,7 +42,7 @@ export const NavMobile = ({ categories }: NavMobileProps) => {
         </svg>
       ),
       label: 'Sell',
-      path: user ? '/profile/seller' : '/become-seller',
+      path: user ? '/profile?section=seller-listings' : '/login',
     },
     {
       id: 'favorites',
@@ -211,6 +211,7 @@ export const NavMobile = ({ categories }: NavMobileProps) => {
       )}
 
       {/* Bottom nav */}
+      {/* Bottom nav */}
       <nav className={styles.nav}>
         {tabs.map((tab) => {
           const isSearch = tab.id === 'search';
@@ -224,11 +225,7 @@ export const NavMobile = ({ categories }: NavMobileProps) => {
           return (
             <button
               key={tab.id}
-              className={`
-                ${styles.tab}
-                ${isSearch ? styles.searchTab : ''}
-                ${active && !isSearch ? styles.activeTab : ''}
-              `}
+              className={`${styles.tab} ${active ? styles.tabActive : ''}`}
               onClick={() => {
                 if (isSearch) {
                   setSearchOpenMobile(!searchOpenMobile);
@@ -243,11 +240,7 @@ export const NavMobile = ({ categories }: NavMobileProps) => {
               }}
               aria-label={tab.label}
             >
-              <div className={`
-                ${styles.iconWrap}
-                ${isSearch ? styles.searchBubble : ''}
-                ${active && isSearch ? styles.searchBubbleActive : ''}
-              `}>
+              <div className={`${styles.iconWrap} ${active ? styles.iconWrapActive : ''}`}>
                 {tab.icon}
                 {tab.badge != null && tab.badge > 0 && (
                   <span className={styles.badge}>
@@ -255,11 +248,9 @@ export const NavMobile = ({ categories }: NavMobileProps) => {
                   </span>
                 )}
               </div>
-              {!isSearch && (
-                <span className={`${styles.label} ${active ? styles.labelActive : ''}`}>
-                  {tab.label}
-                </span>
-              )}
+              <span className={`${styles.label} ${active ? styles.labelActive : ''}`}>
+                {tab.label}
+              </span>
             </button>
           );
         })}

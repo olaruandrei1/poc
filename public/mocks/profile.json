@@ -3,7 +3,7 @@
   "email": "andrei@kicksneak.com",
   "displayName": "Andrei Popescu",
   "photoURL": "https://i.pravatar.cc/150?img=12",
-  "isSeller": true,
+  "isSeller": false,
   "joinedAt": "2024-01-15",
   "totalSpent": 2847.50,
   "totalOrders": 14,
@@ -19,6 +19,7 @@
       "zip": "077160",
       "country": "Romania",
       "phone": "+40721234567",
+      "alternateEmail": "andrei.popescu@gmail.com",
       "isDefault": true
     },
     {
@@ -31,14 +32,10 @@
       "county": "Sector 3",
       "zip": "030828",
       "country": "Romania",
-      "phone": "+40721234567",
+      "phone": "+40722345678",
       "isDefault": false
     }
   ],
-  "contact": {
-    "phone": "+40721234567",
-    "alternateEmail": "andrei.popescu@gmail.com"
-  },
   "sizePreferences": {
     "footwearEU": "43",
     "footwearUS": "9.5",
@@ -47,11 +44,5 @@
     "bottoms": "32",
     "preferredSystem": "EU"
   },
-  "seller": {
-    "storeName": "KickVault RO",
-    "joinedAt": "2024-03-01",
-    "totalSales": 23,
-    "rating": 4.8,
-    "verified": true
-  }
+  "seller": null
 }

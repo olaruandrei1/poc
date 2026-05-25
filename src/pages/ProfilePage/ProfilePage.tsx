@@ -40,8 +40,42 @@ export const ProfilePage = () => {
     };
 
     useEffect(() => {
+        const { user } = useAuthStore.getState();
+
         httpClient.get<UserProfile>(ApiRoutes.profile)
-            .then((r) => setProfile(r.data))
+            .then((r) => {
+                const merged: UserProfile = {
+                    ...r.data,
+                    displayName: user?.displayName ?? r.data.displayName,
+                    email: user?.email ?? r.data.email,
+                    photoURL: user?.photoURL ?? r.data.photoURL,
+                };
+                setProfile(merged);
+            })
+            .catch(() => {
+                if (user) {
+                    setProfile({
+                        uid: user.uid,
+                        displayName: user.displayName ?? 'User',
+                        email: user.email ?? '',
+                        photoURL: user.photoURL ?? null,
+                        isSeller: false,
+                        seller: null,
+                        addresses: [],
+                        joinedAt: new Date().toISOString(),
+                        totalSpent: 0,
+                        totalOrders: 0,
+                        sizePreferences: {
+                            footwearEU: '',
+                            footwearUS: '',
+                            footwearUK: '',
+                            tops: '',
+                            bottoms: '',
+                            preferredSystem: 'EU',
+                        },
+                    });
+                }
+            })
             .finally(() => setLoading(false));
     }, []);
 

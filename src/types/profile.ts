@@ -9,6 +9,7 @@ export interface Address {
     zip: string;
     country: string;
     phone: string;
+    alternateEmail?: string;
     isDefault: boolean;
 }
 
@@ -18,31 +19,37 @@ export interface SizePreferences {
     footwearUK: string;
     tops: string;
     bottoms: string;
-    preferredSystem: string;
+    preferredSystem: 'EU' | 'US' | 'UK';
+}
+
+export interface SellerInfo {
+    storeName: string;
+    joinedAt: string;
+    totalSales: number;
+    rating: number;
+    verified: boolean;
 }
 
 export interface UserProfile {
     uid: string;
     email: string;
     displayName: string;
-    photoURL: string;
+    photoURL: string | null;
     isSeller: boolean;
     joinedAt: string;
     totalSpent: number;
     totalOrders: number;
     addresses: Address[];
-    contact: {
-        phone: string;
-        alternateEmail: string;
-    };
     sizePreferences: SizePreferences;
-    seller?: {
-        storeName: string;
-        joinedAt: string;
-        totalSales: number;
-        rating: number;
-        verified: boolean;
-    };
+    seller?: SellerInfo | null;
+}
+
+export interface OrderItem {
+    name: string;
+    brand: string;
+    size: string;
+    price: number;
+    image: string;
 }
 
 export interface Order {
@@ -50,15 +57,19 @@ export interface Order {
     date: string;
     status: 'pending' | 'shipped' | 'delivered' | 'returned' | 'cancelled';
     total: number;
-    items: {
-        name: string;
-        brand: string;
-        size: string;
-        price: number;
-        image: string;
-    }[];
+    items: OrderItem[];
     tracking: string;
     address: string;
+}
+
+export interface ReturnRequest {
+    id: string;
+    orderId: string;
+    date: string;
+    status: 'pending' | 'approved' | 'rejected' | 'completed';
+    reason: string;
+    items: OrderItem[];
+    images: string[];
 }
 
 export type ProfileSection =

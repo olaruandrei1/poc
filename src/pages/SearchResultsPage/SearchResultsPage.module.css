@@ -115,3 +115,48 @@
         padding: 12px 16px 0;
     }
 }
+
+/* ── AI Recommendations ── */
+.recsSection {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--color-border);
+}
+
+.recsHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.recsTitle {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--color-text);
+}
+
+.recsBadge {
+    background: var(--color-secondary);
+    color: var(--color-bg);
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 100px;
+    letter-spacing: 0.08em;
+}
+
+.recsSubtitle {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin-bottom: 16px;
+}
+
+.recsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}

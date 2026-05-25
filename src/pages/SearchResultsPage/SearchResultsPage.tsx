@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Typography, Drawer, Button, IconButton, Chip, Box } from '@mui/material';
-import { FilterList, Close, TuneOutlined } from '@mui/icons-material';
+import { Close, TuneOutlined } from '@mui/icons-material';
 import { httpClient } from '../../services/axiosService';
 import { ApiRoutes } from '../../services/apiRoutes';
+import { localStorageService } from '../../services/localStorageService';
 import type { ProductItem } from '../../types/product';
 import type { FilterState } from '../../types/filters';
 import type { SortOption } from '../../components/molecules/ProductGrid/ProductGrid';
@@ -17,18 +18,95 @@ import styles from './SearchResultsPage.module.css';
 
 const PAGE_SIZE = 12;
 
+type FeatureVector = Record<string, number>;
+
+const buildVector = (item: ProductItem): FeatureVector => {
+    const vec: FeatureVector = {};
+    if (item.brand) vec[`brand:${item.brand.toLowerCase()}`] = 2;
+    if (item.category) vec[`cat:${item.category.toLowerCase()}`] = 1.5;
+    const bucket = Math.floor((item.price ?? 0) / 100) * 100;
+    vec[`price:${bucket}`] = 1;
+    return vec;
+};
+
+const cosineSimilarity = (a: FeatureVector, b: FeatureVector): number => {
+    const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+
+    let dot = 0, normA = 0, normB = 0;
+
+    keys.forEach((k) => {
+        const va = a[k] ?? 0;
+        const vb = b[k] ?? 0;
+        dot += va * vb;
+        normA += va * va;
+        normB += vb * vb;
+    });
+
+    if (normA === 0 || normB === 0)
+        return 0;
+
+    return dot / (Math.sqrt(normA) * Math.sqrt(normB));
+};
+
+const getRecommendations = (
+    allItems: ProductItem[],
+    viewed: ProductItem[],
+    currentIds: Set<string>,
+    limit = 4
+): ProductItem[] => {
+    if (viewed.length === 0) return [];
+
+    const validViewed = viewed.filter((i) => i?.brand && i?.category);
+    if (validViewed.length === 0) return [];
+
+    const aggregate: FeatureVector = {};
+    validViewed.forEach((item) => {
+        const vec = buildVector(item);
+        Object.entries(vec).forEach(([k, v]) => {
+            aggregate[k] = (aggregate[k] ?? 0) + v;
+        });
+    });
+
+    return allItems
+        .filter((item) => item?.brand && item?.category && !currentIds.has(item.id))
+        .map((item) => ({
+            item,
+            score: cosineSimilarity(aggregate, buildVector(item)),
+        }))
+        .sort((a, b) => b.score - a.score)
+        .slice(0, limit)
+        .map((r) => r.item);
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 export const SearchResultsPage = () => {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
+
     const query = searchParams.get('q') ?? '';
+    const categoryParam = searchParams.get('category') ?? '';
+    const brandParam = searchParams.get('brand') ?? '';
+    const genderParam = searchParams.get('gender') ?? '';
+    const priceMaxParam = searchParams.get('priceMax');
+    const xpressParam = searchParams.get('xpress') === 'true';
+
     const { isMobile, isTablet } = useResponsiveStore();
 
+    const [allItems, setAllItems] = useState<ProductItem[]>([]);
     const [items, setItems] = useState<ProductItem[]>([]);
     const [total, setTotal] = useState(0);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
-    const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
+    const [filters, setFilters] = useState<FilterState>(() => ({
+        ...DEFAULT_FILTERS,
+        categories: categoryParam ? [categoryParam] : [],
+        brands: brandParam ? [brandParam] : [],
+        genders: genderParam ? [genderParam] : [],
+        xpressShip: xpressParam,
+        priceMax: priceMaxParam ? Number(priceMaxParam) : DEFAULT_FILTERS.priceMax,
+    }));
     const [sort, setSort] = useState<SortOption>('featured');
     const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -36,67 +114,111 @@ export const SearchResultsPage = () => {
     const sentinelRef = useRef<HTMLDivElement>(null);
     const isFirstLoad = useRef(true);
 
-    // Fetch page
-    const fetchPage = useCallback(async (pageNum: number, reset = false) => {
-        if (loading) return;
+    // Recently viewed din localStorage
+    const recentlyViewed = useMemo<ProductItem[]>(
+        () => localStorageService.get<ProductItem[]>('recently_viewed') ?? [],
+        []
+    );
+
+    // Fetch all + filter client-side (mock mode)
+    const fetchAll = useCallback(async () => {
         setLoading(true);
         try {
-            // Mock — pe real trimitem query + filters + sort + page
-            const res = await httpClient.get<{ total: number; items: ProductItem[] }>(
+            const res = await httpClient.get<{ items: ProductItem[] } | ProductItem[]>(
                 ApiRoutes.searchProducts(query)
             );
-
-            const all = res.data.items ?? (res.data as any);
-            const allItems: ProductItem[] = Array.isArray(all) ? all : [];
-
-            // Simulam paginare pe mock
-            const start = (pageNum - 1) * PAGE_SIZE;
-            const chunk = allItems.slice(start, start + PAGE_SIZE);
-            const realTotal = allItems.length;
-
-            setTotal(realTotal);
-            setItems((prev) => reset ? chunk : [...prev, ...chunk]);
-            setHasMore(start + PAGE_SIZE < realTotal);
-        } catch (e) {
-            console.error('[Search] fetch error', e);
+            const raw = Array.isArray(res.data)
+                ? res.data
+                : (res.data as any).items ?? [];
+            setAllItems(raw);
+        } catch {
+            setAllItems([]);
         } finally {
             setLoading(false);
         }
-    }, [query, filters, sort]);
+    }, [query]);
 
-    // Reset on query/filter/sort change
     useEffect(() => {
-        setItems([]);
+        setFilters({
+            ...DEFAULT_FILTERS,
+            categories: categoryParam ? [categoryParam] : [],
+            brands: brandParam ? [brandParam] : [],
+            genders: genderParam ? [genderParam] : [],
+            xpressShip: xpressParam,
+            priceMax: priceMaxParam ? Number(priceMaxParam) : DEFAULT_FILTERS.priceMax,
+        });
         setPage(1);
         setHasMore(true);
         isFirstLoad.current = true;
-        fetchPage(1, true).then(() => { isFirstLoad.current = false; });
-    }, [query, filters, sort]);
+        fetchAll().then(() => { isFirstLoad.current = false; });
+    }, [query, categoryParam, brandParam, genderParam, priceMaxParam, xpressParam]);
 
-    // Infinite scroll observer
+    // Filter + sort client-side
+    const filtered = useMemo(() => {
+        let list = [...allItems];
+
+        // Query filter — simulăm Elasticsearch fuzzy match
+        if (query.trim().length >= 3) {
+            const q = query.toLowerCase();
+            list = list.filter((item) =>
+                item.name.toLowerCase().includes(q) ||
+                item.brand.toLowerCase().includes(q) ||
+                item.category.toLowerCase().includes(q)
+            );
+        }
+
+        if (filters.categories.length) {
+            list = list.filter((i) => filters.categories.includes(i.category));
+        }
+        if (filters.brands.length) {
+            list = list.filter((i) => filters.brands.includes(i.brand));
+        }
+        if (filters.priceMin > 0) {
+            list = list.filter((i) => i.price >= filters.priceMin);
+        }
+        if (filters.priceMax < 10000) {
+            list = list.filter((i) => i.price <= filters.priceMax);
+        }
+
+        switch (sort) {
+            case 'price_asc': list.sort((a, b) => a.price - b.price); break;
+            case 'price_desc': list.sort((a, b) => b.price - a.price); break;
+            case 'most_sold': list.sort((a, b) => (b.sold ?? 0) - (a.sold ?? 0)); break;
+            default: break;
+        }
+
+        return list;
+    }, [allItems, query, filters, sort]);
+
+    // Paginated slice
+    const pagedItems = useMemo(() => filtered.slice(0, page * PAGE_SIZE), [filtered, page]);
+
     useEffect(() => {
-        if (observerRef.current) observerRef.current.disconnect();
+        setItems(pagedItems);
+        setTotal(filtered.length);
+        setHasMore(pagedItems.length < filtered.length);
+    }, [pagedItems, filtered.length]);
 
+    // Recommendations
+    const recommendations = useMemo(() => {
+        const currentIds = new Set(filtered.map((i) => i.id));
+        return getRecommendations(allItems, recentlyViewed, currentIds);
+    }, [allItems, recentlyViewed, filtered]);
+
+    // Infinite scroll
+    useEffect(() => {
+        observerRef.current?.disconnect();
         observerRef.current = new IntersectionObserver(
             (entries) => {
                 if (entries[0].isIntersecting && hasMore && !loading && !isFirstLoad.current) {
-                    setPage((prev) => {
-                        const next = prev + 1;
-                        fetchPage(next);
-                        return next;
-                    });
+                    setPage((prev) => prev + 1);
                 }
             },
             { threshold: 0.1 }
         );
-
         if (sentinelRef.current) observerRef.current.observe(sentinelRef.current);
         return () => observerRef.current?.disconnect();
-    }, [hasMore, loading, fetchPage]);
-
-    const handleFiltersChange = (next: FilterState) => {
-        setFilters(next);
-    };
+    }, [hasMore, loading]);
 
     const activeFilterCount = [
         filters.availableNow,
@@ -113,25 +235,27 @@ export const SearchResultsPage = () => {
 
     return (
         <div className={styles.page}>
-
-            {/* Breadcrumb */}
             <div className={styles.breadcrumb}>
                 <button className={styles.breadcrumbLink} onClick={() => navigate('/')}>Home</button>
                 <span className={styles.breadcrumbSep}>/</span>
-                <span className={styles.breadcrumbCurrent}>Search</span>
+                {categoryParam && <>
+                    <span className={styles.breadcrumbCurrent}>{categoryParam}</span>
+                    {brandParam && <><span className={styles.breadcrumbSep}>/</span>
+                        <span className={styles.breadcrumbCurrent}>{brandParam}</span></>}
+                </>}
+                {!categoryParam && (
+                    <span className={styles.breadcrumbCurrent}>
+                        {query ? `"${query}"` : 'All Products'}
+                    </span>
+                )}
             </div>
 
             <div className={styles.layout}>
-
-                {/* Filters — desktop sidebar */}
                 {!isMobileOrTablet && (
-                    <FiltersSidebar filters={filters} onChange={handleFiltersChange} />
+                    <FiltersSidebar filters={filters} onChange={setFilters} />
                 )}
 
-                {/* Main content */}
                 <div className={styles.content}>
-
-                    {/* Mobile filter button */}
                     {isMobileOrTablet && (
                         <div className={styles.mobileToolbar}>
                             <Button
@@ -150,9 +274,7 @@ export const SearchResultsPage = () => {
                             >
                                 Filters
                                 {activeFilterCount > 0 && (
-                                    <Chip
-                                        label={activeFilterCount}
-                                        size="small"
+                                    <Chip label={activeFilterCount} size="small"
                                         sx={{ ml: 1, height: 18, fontSize: '0.65rem', background: 'var(--color-secondary)', color: 'var(--color-bg)' }}
                                     />
                                 )}
@@ -190,22 +312,33 @@ export const SearchResultsPage = () => {
                         ))}
                     </ProductGrid>
 
-                    {/* Sentinel pentru infinite scroll */}
                     <div ref={sentinelRef} className={styles.sentinel} />
 
-                    {/* Loading indicator */}
                     {loading && (
-                        <div className={styles.loadingMore}>
-                            <Spinner size="md" />
-                        </div>
+                        <div className={styles.loadingMore}><Spinner size="md" /></div>
                     )}
 
-                    {/* End of results */}
                     {!hasMore && items.length > 0 && (
                         <div className={styles.endMessage}>
                             <Typography variant="body2" sx={{ color: 'var(--color-text-muted)', fontFamily: 'var(--font-body)' }}>
                                 You've seen all {total} results
                             </Typography>
+                        </div>
+                    )}
+
+                    {/* ── AI Recommendations ── */}
+                    {recommendations.length > 0 && !loading && (
+                        <div className={styles.recsSection}>
+                            <div className={styles.recsHeader}>
+                                <span className={styles.recsTitle}>Recommended for you</span>
+                                <span className={styles.recsBadge}>AI</span>
+                            </div>
+                            <p className={styles.recsSubtitle}>Based on your browsing history</p>
+                            <div className={styles.recsGrid}>
+                                {recommendations.map((item) => (
+                                    <ProductCard key={item.id} item={item} />
+                                ))}
+                            </div>
                         </div>
                     )}
                 </div>
@@ -233,7 +366,7 @@ export const SearchResultsPage = () => {
                         <Close />
                     </IconButton>
                 </div>
-                <FiltersSidebar filters={filters} onChange={handleFiltersChange} />
+                <FiltersSidebar filters={filters} onChange={setFilters} />
             </Drawer>
         </div>
     );

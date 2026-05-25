@@ -32,8 +32,7 @@ export const BecomeSellerModal = ({ open, onClose, onSuccess }: Props) => {
     const handleBack = () => setStep((s) => s - 1);
 
     const handleSubmit = () => {
-        // Mock — în real face API call
-        const updatedProfile: any = {
+        onSuccess({
             isSeller: true,
             seller: {
                 storeName: form.storeName,
@@ -42,8 +41,7 @@ export const BecomeSellerModal = ({ open, onClose, onSuccess }: Props) => {
                 rating: 5.0,
                 verified: false,
             },
-        };
-        onSuccess(updatedProfile);
+        } as any);
     };
 
     const canNext = [

@@ -22,6 +22,12 @@
     box-shadow: 0 6px 32px var(--color-shadow);
 }
 
+@media (max-width: 768px) {
+  .toggle {
+    margin-bottom: 80px;
+  }
+}
+
 .icon {
     font-size: 22px;
     line-height: 1;

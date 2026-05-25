@@ -12,7 +12,7 @@ import styles from './OverviewSection.module.css';
 
 interface Props {
     profile: UserProfile;
-    onProfileUpdate: (p: UserProfile) => void;
+    onProfileUpdate?: (p: UserProfile) => void;
 }
 
 const STATUS_COLOR: Record<string, string> = {
@@ -29,7 +29,8 @@ export const OverviewSection = ({ profile }: Props) => {
 
     useEffect(() => {
         httpClient.get<{ items: Order[] }>(ApiRoutes.orders)
-            .then((r) => setOrders(r.data.items.slice(0, 3)));
+            .then((r) => setOrders(r.data.items.slice(0, 3)))
+            .catch(() => setOrders([]));
     }, []);
 
     const stats = [
@@ -67,21 +68,31 @@ export const OverviewSection = ({ profile }: Props) => {
                     </button>
                 </div>
                 <div className={styles.orderList}>
-                    {orders.map((order) => (
+                    {orders.length === 0 ? (
+                        <div className={styles.emptyOrders}>
+                            <ShoppingBag sx={{ fontSize: 32, color: 'var(--color-text-muted)', opacity: 0.4 }} />
+                            <span>No orders yet</span>
+                        </div>
+                    ) : orders.map((order) => (
                         <div key={order.id} className={styles.orderRow}>
                             <img
-                                src={order.items[0].image}
-                                alt={order.items[0].name}
+                                src={order.items[0]?.image}
+                                alt={order.items[0]?.name}
                                 className={styles.orderImg}
                             />
                             <div className={styles.orderInfo}>
-                                <span className={styles.orderName}>{order.items[0].name}</span>
-                                <span className={styles.orderDate}>{new Date(order.date).toLocaleDateString('en-GB')}</span>
+                                <span className={styles.orderName}>{order.items[0]?.name}</span>
+                                <span className={styles.orderDate}>
+                                    {new Date(order.date).toLocaleDateString('en-GB')}
+                                </span>
                             </div>
                             <span className={styles.orderTotal}>${order.total}</span>
                             <span
                                 className={styles.orderStatus}
-                                style={{ color: STATUS_COLOR[order.status], background: `${STATUS_COLOR[order.status]}18` }}
+                                style={{
+                                    color: STATUS_COLOR[order.status],
+                                    background: `${STATUS_COLOR[order.status]}18`,
+                                }}
                             >
                                 {order.status}
                             </span>
@@ -90,7 +101,7 @@ export const OverviewSection = ({ profile }: Props) => {
                 </div>
             </GlassCard>
 
-            {/* Seller summary dacă e seller */}
+            {/* Seller summary */}
             {profile.isSeller && profile.seller && (
                 <GlassCard className={styles.sellerCard}>
                     <div className={styles.sellerHeader}>

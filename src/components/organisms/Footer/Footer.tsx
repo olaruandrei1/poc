@@ -46,8 +46,8 @@ export const Footer = () => {
                             <div key={col.title} className={styles.col}>
                                 <span className={styles.colTitle}>{col.title}</span>
                                 <ul className={styles.colList}>
-                                    {col.links.map((link) => (
-                                        <li key={link.href}>
+                                    {col.links.map((link, i) => (
+                                        <li key={`${link.href}-${i}`}>
                                             <button
                                                 className={styles.link}
                                                 onClick={() => navigate(link.href)}
@@ -84,7 +84,7 @@ export const Footer = () => {
 
                     <div className={styles.legal}>
                         {data.legal.map((l, i) => (
-                            <span key={l.href} className={styles.legalItem}>
+                            <span key={`${l.href}-${i}`} className={styles.legalItem}>
                                 {i > 0 && <span className={styles.legalSep}>·</span>}
                                 <button
                                     className={styles.legalLink}
