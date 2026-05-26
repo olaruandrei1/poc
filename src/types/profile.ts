@@ -78,6 +78,7 @@ export type ProfileSection =
     | 'addresses'
     | 'sizes'
     | 'returns'
+    | 'watched-auctions'
     | 'chat'
     | 'settings'
     | 'seller-listings'

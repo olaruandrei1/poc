@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     Switch, FormControlLabel, Checkbox,
     Slider, Collapse, Divider,
@@ -26,6 +26,16 @@ export const FiltersSidebar = ({ filters, onChange }: FiltersSidebarProps) => {
 
     const toggleBool = (key: 'availableNow' | 'xpressShip') =>
         onChange({ ...filters, [key]: !filters[key] });
+
+    useEffect(() => {
+        if (filters.genders.length) setOpenSection('gender');
+        else if (filters.brands.length) setOpenSection('brands');
+        else if (filters.categories.length) setOpenSection('category');
+    }, [
+        filters.genders.length,
+        filters.brands.length,
+        filters.categories.length,
+    ]);
 
     const toggleMulti = (
         key: 'categories' | 'genders' | 'brands' | 'activities' | 'colors',

@@ -1,4 +1,3 @@
-// src/pages/AuctionsPage/AuctionsPage.tsx
 import { useEffect, useMemo, useState } from 'react';
 import { Drawer, IconButton, Select, MenuItem } from '@mui/material';
 import TuneIcon from '@mui/icons-material/Tune';

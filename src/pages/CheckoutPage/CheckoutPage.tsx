@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TextField, MenuItem, Stepper, Step, StepLabel } from '@mui/material';
+import { TextField, MenuItem, Stepper, Step, StepLabel, Radio } from '@mui/material';
+import { Home, Business, Add } from '@mui/icons-material';
 import { useCartStore } from '../../store/cartStore';
 import { useAuthStore } from '../../store/authStore';
+import { httpClient } from '../../services/axiosService';
+import { ApiRoutes } from '../../services/apiRoutes';
 import { GlassCard } from '../ProfilePage/components/sections/GlassCard';
+import type { UserProfile, Address } from '../../types/profile';
 import styles from './CheckoutPage.module.css';
 
 const STEPS = ['Shipping', 'Payment', 'Review'];
@@ -14,6 +18,9 @@ const CheckoutPage = () => {
     const { items, clearCart } = useCartStore();
     const [step, setStep] = useState(0);
     const [orderPlaced, setOrderPlaced] = useState(false);
+    const [savedAddresses, setSavedAddresses] = useState<Address[]>([]);
+    const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null);
+    const [useNewAddress, setUseNewAddress] = useState(false);
 
     const [shipping, setShipping] = useState({
         firstName: '', lastName: '', street: '',
@@ -23,6 +30,46 @@ const CheckoutPage = () => {
     const [payment, setPayment] = useState({
         cardNumber: '', expiry: '', cvv: '', cardName: '',
     });
+
+    useEffect(() => {
+        httpClient.get<UserProfile>(ApiRoutes.profile)
+            .then((r) => {
+                const addresses = r.data.addresses ?? [];
+                setSavedAddresses(addresses);
+                const def = addresses.find((a) => a.isDefault) ?? addresses[0];
+                if (def) {
+                    setSelectedAddressId(def.id);
+                    setShipping({
+                        firstName: def.firstName,
+                        lastName: def.lastName,
+                        street: def.street,
+                        city: def.city,
+                        county: def.county,
+                        zip: def.zip,
+                        country: def.country,
+                        phone: def.phone,
+                    });
+                } else {
+                    setUseNewAddress(true);
+                }
+            })
+            .catch(() => setUseNewAddress(true));
+    }, []);
+
+    const handleSelectAddress = (addr: Address) => {
+        setSelectedAddressId(addr.id);
+        setUseNewAddress(false);
+        setShipping({
+            firstName: addr.firstName,
+            lastName: addr.lastName,
+            street: addr.street,
+            city: addr.city,
+            county: addr.county,
+            zip: addr.zip,
+            country: addr.country,
+            phone: addr.phone,
+        });
+    };
 
     const subtotal = items.reduce((s, i) => s + i.price * (i.quantity ?? 1), 0);
     const shipping_fee = subtotal > 200 ? 0 : 12;
@@ -54,8 +101,6 @@ const CheckoutPage = () => {
     return (
         <div className={styles.page}>
             <div className={styles.inner}>
-
-                {/* Left — steps */}
                 <div className={styles.formCol}>
                     <h1 className={styles.title}>Checkout</h1>
 
@@ -78,36 +123,85 @@ const CheckoutPage = () => {
                     {step === 0 && (
                         <GlassCard>
                             <h3 className={styles.stepTitle}>Shipping Address</h3>
-                            <div className={styles.formGrid}>
-                                {[
-                                    { key: 'firstName', label: 'First Name' },
-                                    { key: 'lastName', label: 'Last Name' },
-                                    { key: 'street', label: 'Street Address', full: true },
-                                    { key: 'city', label: 'City' },
-                                    { key: 'county', label: 'County' },
-                                    { key: 'zip', label: 'ZIP Code' },
-                                    { key: 'phone', label: 'Phone' },
-                                ].map(({ key, label, full }) => (
-                                    <TextField
-                                        key={key}
-                                        label={label}
-                                        value={(shipping as any)[key]}
-                                        onChange={(e) => setShipping((s) => ({ ...s, [key]: e.target.value }))}
-                                        size="small"
-                                        fullWidth
-                                        sx={{ ...(full ? { gridColumn: '1 / -1' } : {}), ...sxField }}
-                                    />
-                                ))}
-                                <TextField
-                                    select label="Country" value={shipping.country}
-                                    onChange={(e) => setShipping((s) => ({ ...s, country: e.target.value }))}
-                                    size="small" fullWidth sx={sxField}
-                                >
-                                    {['Romania', 'Germany', 'France', 'Netherlands', 'Spain', 'Italy', 'UK'].map((c) => (
-                                        <MenuItem key={c} value={c}>{c}</MenuItem>
+
+                            {/* Adrese salvate */}
+                            {savedAddresses.length > 0 && (
+                                <div className={styles.savedAddresses}>
+                                    {savedAddresses.map((addr) => (
+                                        <div
+                                            key={addr.id}
+                                            className={`${styles.addrOption} ${selectedAddressId === addr.id && !useNewAddress ? styles.addrOptionSelected : ''}`}
+                                            onClick={() => handleSelectAddress(addr)}
+                                        >
+                                            <Radio
+                                                checked={selectedAddressId === addr.id && !useNewAddress}
+                                                size="small"
+                                                sx={{ color: 'var(--color-border)', '&.Mui-checked': { color: 'var(--color-secondary)' }, p: 0, mr: 1 }}
+                                            />
+                                            {addr.label === 'Home'
+                                                ? <Home sx={{ fontSize: 16, color: 'var(--color-accent)', mr: 0.5 }} />
+                                                : <Business sx={{ fontSize: 16, color: 'var(--color-accent)', mr: 0.5 }} />
+                                            }
+                                            <div className={styles.addrOptionInfo}>
+                                                <span className={styles.addrOptionLabel}>{addr.label} — {addr.firstName} {addr.lastName}</span>
+                                                <span className={styles.addrOptionText}>{addr.street}, {addr.city} {addr.zip}</span>
+                                            </div>
+                                            {addr.isDefault && (
+                                                <span className={styles.defaultBadge}>Default</span>
+                                            )}
+                                        </div>
                                     ))}
-                                </TextField>
-                            </div>
+
+                                    {/* New address option */}
+                                    <div
+                                        className={`${styles.addrOption} ${useNewAddress ? styles.addrOptionSelected : ''}`}
+                                        onClick={() => { setUseNewAddress(true); setSelectedAddressId(null); }}
+                                    >
+                                        <Radio
+                                            checked={useNewAddress}
+                                            size="small"
+                                            sx={{ color: 'var(--color-border)', '&.Mui-checked': { color: 'var(--color-secondary)' }, p: 0, mr: 1 }}
+                                        />
+                                        <Add sx={{ fontSize: 16, color: 'var(--color-text-muted)', mr: 0.5 }} />
+                                        <span className={styles.addrOptionLabel}>Use a different address</span>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Form nou address */}
+                            {(useNewAddress || savedAddresses.length === 0) && (
+                                <div className={styles.formGrid}>
+                                    {[
+                                        { key: 'firstName', label: 'First Name' },
+                                        { key: 'lastName', label: 'Last Name' },
+                                        { key: 'street', label: 'Street Address', full: true },
+                                        { key: 'city', label: 'City' },
+                                        { key: 'county', label: 'County' },
+                                        { key: 'zip', label: 'ZIP Code' },
+                                        { key: 'phone', label: 'Phone' },
+                                    ].map(({ key, label, full }) => (
+                                        <TextField
+                                            key={key}
+                                            label={label}
+                                            value={(shipping as any)[key]}
+                                            onChange={(e) => setShipping((s) => ({ ...s, [key]: e.target.value }))}
+                                            size="small"
+                                            fullWidth
+                                            sx={{ ...(full ? { gridColumn: '1 / -1' } : {}), ...sxField }}
+                                        />
+                                    ))}
+                                    <TextField
+                                        select label="Country" value={shipping.country}
+                                        onChange={(e) => setShipping((s) => ({ ...s, country: e.target.value }))}
+                                        size="small" fullWidth sx={sxField}
+                                    >
+                                        {['Romania', 'Germany', 'France', 'Netherlands', 'Spain', 'Italy', 'UK'].map((c) => (
+                                            <MenuItem key={c} value={c}>{c}</MenuItem>
+                                        ))}
+                                    </TextField>
+                                </div>
+                            )}
+
                             <button className={styles.nextBtn} onClick={() => setStep(1)}>
                                 Continue to Payment →
                             </button>
@@ -136,15 +230,12 @@ const CheckoutPage = () => {
                                 <TextField
                                     label="Expiry (MM/YY)" value={payment.expiry}
                                     onChange={(e) => setPayment((p) => ({ ...p, expiry: e.target.value }))}
-                                    placeholder="12/28"
-                                    size="small" fullWidth sx={sxField}
+                                    placeholder="12/28" size="small" fullWidth sx={sxField}
                                 />
                                 <TextField
                                     label="CVV" value={payment.cvv}
                                     onChange={(e) => setPayment((p) => ({ ...p, cvv: e.target.value.slice(0, 4) }))}
-                                    placeholder="123"
-                                    size="small" fullWidth sx={sxField}
-                                    type="password"
+                                    placeholder="123" size="small" fullWidth sx={sxField} type="password"
                                 />
                             </div>
                             <div className={styles.btnRow}>
@@ -182,7 +273,7 @@ const CheckoutPage = () => {
                     )}
                 </div>
 
-                {/* Right — order summary */}
+                {/* Order summary */}
                 <div className={styles.summaryCol}>
                     <GlassCard>
                         <h3 className={styles.stepTitle}>Order Summary</h3>
@@ -202,21 +293,17 @@ const CheckoutPage = () => {
                         </div>
                         <div className={styles.totals}>
                             <div className={styles.totalRow}>
-                                <span>Subtotal</span>
-                                <span>${subtotal.toFixed(2)}</span>
+                                <span>Subtotal</span><span>${subtotal.toFixed(2)}</span>
                             </div>
                             <div className={styles.totalRow}>
-                                <span>Shipping</span>
-                                <span>{shipping_fee === 0 ? 'Free' : `$${shipping_fee}`}</span>
+                                <span>Shipping</span><span>{shipping_fee === 0 ? 'Free' : `$${shipping_fee}`}</span>
                             </div>
                             <div className={`${styles.totalRow} ${styles.totalRowFinal}`}>
-                                <span>Total</span>
-                                <span>${total.toFixed(2)}</span>
+                                <span>Total</span><span>${total.toFixed(2)}</span>
                             </div>
                         </div>
                     </GlassCard>
                 </div>
-
             </div>
         </div>
     );

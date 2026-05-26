@@ -49,7 +49,7 @@ export const ApiRoutes = {
 
   placeBid: (id: string) =>
     USE_MOCKS
-      ? `${MOCK_BASE}/auction-bids.json` 
+      ? `${MOCK_BASE}/auction-bids.json`
       : `${API_BASE}/auctions/${id}/bids`,
 
   auctionMyBids: `${base}/auction-my-bids.json`,
@@ -102,4 +102,6 @@ export const ApiRoutes = {
     USE_MOCKS
       ? `${MOCK_BASE}/order-confirmation.json`
       : `${API_BASE}/orders/${orderId}/confirmation`,
+
+  brands: `${base}/brands.json`,
 } as const;

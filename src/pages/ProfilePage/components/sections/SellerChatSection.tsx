@@ -19,9 +19,18 @@ export const SellerChatSection = ({ profile }: Props) => {
         { id: '1', role: 'support', content: "Welcome to KickSneak Seller Support. How can we assist you today?", timestamp: new Date() },
     ]);
     const [input, setInput] = useState('');
-    const bottomRef = useRef<HTMLDivElement>(null);
+    const messagesRef = useRef<HTMLDivElement>(null);
+    const isFirstMount = useRef(true);
 
-    useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
+    useEffect(() => {
+        if (isFirstMount.current) {
+            isFirstMount.current = false;
+            return;
+        }
+        if (messagesRef.current) {
+            messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+        }
+    }, [messages]);
 
     const handleSend = () => {
         if (!input.trim()) return;
@@ -36,7 +45,7 @@ export const SellerChatSection = ({ profile }: Props) => {
         }, 1200);
     };
 
-    return (
+     return (
         <div className={styles.wrapper}>
             <div className={styles.header}>
                 <h2 className={styles.title}>Seller Support</h2>
@@ -61,7 +70,7 @@ export const SellerChatSection = ({ profile }: Props) => {
                     <span className={styles.statusText}>Seller Support Team — Avg. response: 5 min</span>
                 </div>
 
-                <div className={styles.messages}>
+                <div className={styles.messages} ref={messagesRef}>
                     {messages.map((msg) => (
                         <div key={msg.id} className={`${styles.message} ${msg.role === 'seller' ? styles.messageSeller : styles.messageSupport}`}>
                             <div className={styles.bubble}>{msg.content}</div>
@@ -70,7 +79,6 @@ export const SellerChatSection = ({ profile }: Props) => {
                             </span>
                         </div>
                     ))}
-                    <div ref={bottomRef} />
                 </div>
 
                 <div className={styles.inputRow}>

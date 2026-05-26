@@ -10,6 +10,7 @@ import { NavDropdownPanel } from './NavDropdownPanel';
 import { ProductChip } from '../../../atoms/ProductChip/ProductChip';
 import { NotificationPanel } from '../../../molecules/NotificationPanel/NotificationPanel';
 import { useNotificationStore } from '../../../../store/notificationStore';
+import { firebaseService } from '../../../../services/firebaseService';
 import type { NavbarCategory } from '../../../../types/product';
 import styles from './NavDesktop.module.css';
 
@@ -209,6 +210,25 @@ export const NavDesktop = ({ categories }: NavDesktopProps) => {
                         }
                     </button>
 
+                    {user && (
+                        <button
+                            className={styles.logoutBtn}
+                            onClick={async () => {
+                                await firebaseService.logout();
+                                useAuthStore.getState().setUser(null);
+                                navigate('/');
+                            }}
+                            aria-label="Logout"
+                            title="Sign out"
+                        >
+                            <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+                                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                                <polyline points="16 17 21 12 16 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                                <line x1="21" y1="12" x2="9" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                            </svg>
+                        </button>
+                    )}
+
                 </div>
             </div>
 
@@ -228,8 +248,7 @@ export const NavDesktop = ({ categories }: NavDesktopProps) => {
                                     ${activeMegaMenu === cat.id ? styles.catActive : ''}
                                 `}
                                 onClick={() => {
-                                    navigate(`/search?category=${encodeURIComponent(cat.label)}`);
-                                    setActiveMegaMenu(null);
+                                    setActiveMegaMenu(activeMegaMenu === cat.id ? null : cat.id);
                                 }}
                             >
                                 {cat.label}

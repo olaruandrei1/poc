@@ -19,3 +19,13 @@
 .noPadding {
     padding: 0;
 }
+
+.clickable {
+    cursor: pointer;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.clickable:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-1px);
+}

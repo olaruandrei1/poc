@@ -106,9 +106,9 @@
         "title": "Men's Apparel",
         "items": [
           { "label": "FOG Essentials", "href": "/search?gender=Men&category=Apparel&brand=FOG+Essentials" },
-          { "label": "Supreme Apparel", "href": "/search?gender=Men&category=Apparel&brand=Supreme" },
+          { "label": "Supreme", "href": "/search?gender=Men&category=Apparel&brand=Supreme" },
           { "label": "Nike Apparel", "href": "/search?gender=Men&category=Apparel&brand=Nike" },
-          { "label": "BAPE Apparel", "href": "/search?gender=Men&category=Apparel&brand=BAPE" }
+          { "label": "BAPE", "href": "/search?gender=Men&category=Apparel&brand=BAPE" }
         ]
       },
       {

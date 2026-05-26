@@ -4,7 +4,7 @@ import {
     Assignment, Chat, Settings, Store,
     BarChart, KeyboardArrowDown, KeyboardArrowUp,
     AssignmentReturn, SupportAgent, AddBusiness,
-    Verified,
+    Verified, Gavel 
 } from '@mui/icons-material';
 import type { UserProfile, ProfileSection } from '../../../types/profile';
 import styles from './ProfileSidebar.module.css';
@@ -24,6 +24,7 @@ const USER_SECTIONS = [
     { id: 'returns', label: 'Returns', icon: <AssignmentReturn sx={{ fontSize: 18 }} /> },
     { id: 'chat', label: 'Support Chat', icon: <Chat sx={{ fontSize: 18 }} /> },
     { id: 'settings', label: 'Settings', icon: <Settings sx={{ fontSize: 18 }} /> },
+    { id: 'watched-auctions', label: 'Watched Auctions', icon: <Gavel sx={{ fontSize: 18 }} /> },
 ] as const;
 
 const SELLER_SECTIONS = [

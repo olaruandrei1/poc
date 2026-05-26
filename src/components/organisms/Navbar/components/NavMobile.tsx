@@ -111,7 +111,6 @@ export const NavMobile = ({ categories }: NavMobileProps) => {
 
   return (
     <>
-      {/* Search + MegaMenu overlay */}
       {searchOpenMobile && (
         <div className={styles.searchOverlay}>
           <div
@@ -120,29 +119,38 @@ export const NavMobile = ({ categories }: NavMobileProps) => {
           />
 
           <div className={`${styles.searchPanel} ${megaMenuOpenMobile ? styles.searchPanelSlid : ''}`}>
-            <div className={styles.searchOverlayContent}>
-              <SearchBox
-                variant="mobile"
-                autoFocus={!megaMenuOpenMobile}
-                onClose={() => { setSearchOpenMobile(false); setMegaMenuOpenMobile(false); }}
-                onProductClick={(p) => {
-                  navigate(`/product/${p.id}`);
-                  setSearchOpenMobile(false);
-                  setMegaMenuOpenMobile(false);
-                }}
-              />
+            <div className={styles.searchInputWrap}>
+              <div className={styles.searchTopRow}>
+                <SearchBox
+                  variant="mobile"
+                  autoFocus={!megaMenuOpenMobile}
+                  onClose={() => { setSearchOpenMobile(false); setMegaMenuOpenMobile(false); }}
+                  onProductClick={(p) => {
+                    navigate(`/product/${p.id}`);
+                    setSearchOpenMobile(false);
+                    setMegaMenuOpenMobile(false);
+                  }}
+                />
+                <button
+                  className={styles.closeSearchBtn}
+                  onClick={() => { setSearchOpenMobile(false); setMegaMenuOpenMobile(false); }}
+                >
+                  ✕
+                </button>
+              </div>
+
+              <button
+                className={styles.browseBtn}
+                onClick={() => setMegaMenuOpenMobile(true)}
+              >
+                <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+                  <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  <line x1="3" y1="18" x2="15" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+                Browse Categories
+              </button>
             </div>
-            <button
-              className={styles.browseBtn}
-              onClick={() => setMegaMenuOpenMobile(true)}
-            >
-              <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
-                <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                <line x1="3" y1="18" x2="15" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-              Browse Categories
-            </button>
           </div>
 
           {/* MegaMenu panel */}
@@ -194,7 +202,6 @@ export const NavMobile = ({ categories }: NavMobileProps) => {
         </div>
       )}
 
-      {/* Notifications overlay */}
       {notifOpen && (
         <div className={styles.notifOverlay}>
           <div
@@ -210,8 +217,6 @@ export const NavMobile = ({ categories }: NavMobileProps) => {
         </div>
       )}
 
-      {/* Bottom nav */}
-      {/* Bottom nav */}
       <nav className={styles.nav}>
         {tabs.map((tab) => {
           const isSearch = tab.id === 'search';

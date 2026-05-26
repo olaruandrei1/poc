@@ -31,9 +31,7 @@ const buildVector = (item: ProductItem): FeatureVector => {
 
 const cosineSimilarity = (a: FeatureVector, b: FeatureVector): number => {
     const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
-
     let dot = 0, normA = 0, normB = 0;
-
     keys.forEach((k) => {
         const va = a[k] ?? 0;
         const vb = b[k] ?? 0;
@@ -41,10 +39,7 @@ const cosineSimilarity = (a: FeatureVector, b: FeatureVector): number => {
         normA += va * va;
         normB += vb * vb;
     });
-
-    if (normA === 0 || normB === 0)
-        return 0;
-
+    if (normA === 0 || normB === 0) return 0;
     return dot / (Math.sqrt(normA) * Math.sqrt(normB));
 };
 
@@ -55,10 +50,8 @@ const getRecommendations = (
     limit = 4
 ): ProductItem[] => {
     if (viewed.length === 0) return [];
-
     const validViewed = viewed.filter((i) => i?.brand && i?.category);
     if (validViewed.length === 0) return [];
-
     const aggregate: FeatureVector = {};
     validViewed.forEach((item) => {
         const vec = buildVector(item);
@@ -66,32 +59,49 @@ const getRecommendations = (
             aggregate[k] = (aggregate[k] ?? 0) + v;
         });
     });
-
     return allItems
         .filter((item) => item?.brand && item?.category && !currentIds.has(item.id))
-        .map((item) => ({
-            item,
-            score: cosineSimilarity(aggregate, buildVector(item)),
-        }))
+        .map((item) => ({ item, score: cosineSimilarity(aggregate, buildVector(item)) }))
         .sort((a, b) => b.score - a.score)
         .slice(0, limit)
         .map((r) => r.item);
 };
 
+// ── Helpers ──────────────────────────────────────────────────────────────────
+
+const filtersFromParams = (sp: URLSearchParams): FilterState => ({
+    ...DEFAULT_FILTERS,
+    categories: sp.getAll('category'),
+    brands: sp.getAll('brand'),
+    genders: sp.getAll('gender'),
+    xpressShip: sp.get('xpress') === 'true',
+    priceMin: sp.get('priceMin') ? Number(sp.get('priceMin')) : DEFAULT_FILTERS.priceMin,
+    priceMax: sp.get('priceMax') ? Number(sp.get('priceMax')) : DEFAULT_FILTERS.priceMax,
+});
+
+const filtersToParams = (filters: FilterState, query: string, sort: SortOption): URLSearchParams => {
+    const p = new URLSearchParams();
+    if (query) p.set('q', query);
+    filters.categories.forEach((c) => p.append('category', c));
+    filters.brands.forEach((b) => p.append('brand', b));
+    filters.genders.forEach((g) => p.append('gender', g));
+    if (filters.priceMin > 0) p.set('priceMin', String(filters.priceMin));
+    if (filters.priceMax < 10000) p.set('priceMax', String(filters.priceMax));
+    if (filters.xpressShip) p.set('xpress', 'true');
+    if (sort !== 'featured') p.set('sort', sort);
+    return p;
+};
+
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const SearchResultsPage = () => {
-    const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
+    const { isMobile, isTablet } = useResponsiveStore();
 
     const query = searchParams.get('q') ?? '';
-    const categoryParam = searchParams.get('category') ?? '';
-    const brandParam = searchParams.get('brand') ?? '';
-    const genderParam = searchParams.get('gender') ?? '';
-    const priceMaxParam = searchParams.get('priceMax');
-    const xpressParam = searchParams.get('xpress') === 'true';
-
-    const { isMobile, isTablet } = useResponsiveStore();
+    const sortParam = (searchParams.get('sort') as SortOption) ?? 'featured';
+    const paramsKey = searchParams.toString();
 
     const [allItems, setAllItems] = useState<ProductItem[]>([]);
     const [items, setItems] = useState<ProductItem[]>([]);
@@ -99,37 +109,35 @@ export const SearchResultsPage = () => {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
-    const [filters, setFilters] = useState<FilterState>(() => ({
-        ...DEFAULT_FILTERS,
-        categories: categoryParam ? [categoryParam] : [],
-        brands: brandParam ? [brandParam] : [],
-        genders: genderParam ? [genderParam] : [],
-        xpressShip: xpressParam,
-        priceMax: priceMaxParam ? Number(priceMaxParam) : DEFAULT_FILTERS.priceMax,
-    }));
-    const [sort, setSort] = useState<SortOption>('featured');
+    const [filters, setFilters] = useState<FilterState>(() => filtersFromParams(searchParams));
+    const [sort, setSort] = useState<SortOption>(sortParam);
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     const observerRef = useRef<IntersectionObserver | null>(null);
     const sentinelRef = useRef<HTMLDivElement>(null);
     const isFirstLoad = useRef(true);
 
-    // Recently viewed din localStorage
     const recentlyViewed = useMemo<ProductItem[]>(
         () => localStorageService.get<ProductItem[]>('recently_viewed') ?? [],
         []
     );
 
-    // Fetch all + filter client-side (mock mode)
+    // ── Sync filters + sort din URL (single source of truth) ──
+    useEffect(() => {
+        setFilters(filtersFromParams(searchParams));
+        setSort(sortParam);
+        setPage(1);
+        setHasMore(true);
+    }, [paramsKey]);
+
+    // ── Fetch data când se schimbă query ──
     const fetchAll = useCallback(async () => {
         setLoading(true);
         try {
             const res = await httpClient.get<{ items: ProductItem[] } | ProductItem[]>(
                 ApiRoutes.searchProducts(query)
             );
-            const raw = Array.isArray(res.data)
-                ? res.data
-                : (res.data as any).items ?? [];
+            const raw = Array.isArray(res.data) ? res.data : (res.data as any).items ?? [];
             setAllItems(raw);
         } catch {
             setAllItems([]);
@@ -139,25 +147,14 @@ export const SearchResultsPage = () => {
     }, [query]);
 
     useEffect(() => {
-        setFilters({
-            ...DEFAULT_FILTERS,
-            categories: categoryParam ? [categoryParam] : [],
-            brands: brandParam ? [brandParam] : [],
-            genders: genderParam ? [genderParam] : [],
-            xpressShip: xpressParam,
-            priceMax: priceMaxParam ? Number(priceMaxParam) : DEFAULT_FILTERS.priceMax,
-        });
-        setPage(1);
-        setHasMore(true);
         isFirstLoad.current = true;
         fetchAll().then(() => { isFirstLoad.current = false; });
-    }, [query, categoryParam, brandParam, genderParam, priceMaxParam, xpressParam]);
+    }, [query]);
 
-    // Filter + sort client-side
+    // ── Filter + sort client-side ──
     const filtered = useMemo(() => {
         let list = [...allItems];
 
-        // Query filter — simulăm Elasticsearch fuzzy match
         if (query.trim().length >= 3) {
             const q = query.toLowerCase();
             list = list.filter((item) =>
@@ -167,18 +164,16 @@ export const SearchResultsPage = () => {
             );
         }
 
-        if (filters.categories.length) {
+        if (filters.categories.length)
             list = list.filter((i) => filters.categories.includes(i.category));
-        }
-        if (filters.brands.length) {
+        if (filters.brands.length)
             list = list.filter((i) => filters.brands.includes(i.brand));
-        }
-        if (filters.priceMin > 0) {
+        if (filters.genders.length)
+            list = list.filter((i) => filters.genders.includes((i as any).gender));
+        if (filters.priceMin > 0)
             list = list.filter((i) => i.price >= filters.priceMin);
-        }
-        if (filters.priceMax < 10000) {
+        if (filters.priceMax < 10000)
             list = list.filter((i) => i.price <= filters.priceMax);
-        }
 
         switch (sort) {
             case 'price_asc': list.sort((a, b) => a.price - b.price); break;
@@ -190,7 +185,6 @@ export const SearchResultsPage = () => {
         return list;
     }, [allItems, query, filters, sort]);
 
-    // Paginated slice
     const pagedItems = useMemo(() => filtered.slice(0, page * PAGE_SIZE), [filtered, page]);
 
     useEffect(() => {
@@ -199,13 +193,12 @@ export const SearchResultsPage = () => {
         setHasMore(pagedItems.length < filtered.length);
     }, [pagedItems, filtered.length]);
 
-    // Recommendations
     const recommendations = useMemo(() => {
         const currentIds = new Set(filtered.map((i) => i.id));
         return getRecommendations(allItems, recentlyViewed, currentIds);
     }, [allItems, recentlyViewed, filtered]);
 
-    // Infinite scroll
+    // ── Infinite scroll ──
     useEffect(() => {
         observerRef.current?.disconnect();
         observerRef.current = new IntersectionObserver(
@@ -220,6 +213,15 @@ export const SearchResultsPage = () => {
         return () => observerRef.current?.disconnect();
     }, [hasMore, loading]);
 
+    // ── Handler filters — URL e sursa de adevăr ──
+    const handleFiltersChange = useCallback((next: FilterState) => {
+        setSearchParams(filtersToParams(next, query, sort), { replace: true });
+    }, [query, sort, setSearchParams]);
+
+    const handleSortChange = useCallback((next: SortOption) => {
+        setSearchParams(filtersToParams(filters, query, next), { replace: true });
+    }, [filters, query, setSearchParams]);
+
     const activeFilterCount = [
         filters.availableNow,
         filters.xpressShip,
@@ -233,26 +235,27 @@ export const SearchResultsPage = () => {
 
     const isMobileOrTablet = isMobile || isTablet;
 
+    // ── Breadcrumb ──
+    const breadcrumb = (() => {
+        const parts: string[] = [];
+        if (filters.genders.length) parts.push(filters.genders.join(' & '));
+        if (filters.categories.length) parts.push(filters.categories.join(' & '));
+        if (filters.brands.length) parts.push(filters.brands.join(' & '));
+        if (query) parts.push(`"${query}"`);
+        return parts.join(' · ') || 'All Products';
+    })();
+
     return (
         <div className={styles.page}>
             <div className={styles.breadcrumb}>
                 <button className={styles.breadcrumbLink} onClick={() => navigate('/')}>Home</button>
                 <span className={styles.breadcrumbSep}>/</span>
-                {categoryParam && <>
-                    <span className={styles.breadcrumbCurrent}>{categoryParam}</span>
-                    {brandParam && <><span className={styles.breadcrumbSep}>/</span>
-                        <span className={styles.breadcrumbCurrent}>{brandParam}</span></>}
-                </>}
-                {!categoryParam && (
-                    <span className={styles.breadcrumbCurrent}>
-                        {query ? `"${query}"` : 'All Products'}
-                    </span>
-                )}
+                <span className={styles.breadcrumbCurrent}>{breadcrumb}</span>
             </div>
 
             <div className={styles.layout}>
                 {!isMobileOrTablet && (
-                    <FiltersSidebar filters={filters} onChange={setFilters} />
+                    <FiltersSidebar filters={filters} onChange={handleFiltersChange} />
                 )}
 
                 <div className={styles.content}>
@@ -284,16 +287,13 @@ export const SearchResultsPage = () => {
 
                     <ProductGrid
                         totalCount={total}
-                        searchQuery={query}
+                        searchQuery={query || breadcrumb}
                         defaultMode="grid"
                         showModeSwitch
                         showSort
                         showClearFilters
-                        onSortChange={setSort}
-                        onClearFilters={() => {
-                            setFilters(DEFAULT_FILTERS);
-                            navigate('/search');
-                        }}
+                        onSortChange={handleSortChange}
+                        onClearFilters={() => navigate('/search')}
                         emptyState={
                             !loading ? (
                                 <Box sx={{ textAlign: 'center', py: 8 }}>
@@ -326,7 +326,6 @@ export const SearchResultsPage = () => {
                         </div>
                     )}
 
-                    {/* ── AI Recommendations ── */}
                     {recommendations.length > 0 && !loading && (
                         <div className={styles.recsSection}>
                             <div className={styles.recsHeader}>
@@ -366,7 +365,7 @@ export const SearchResultsPage = () => {
                         <Close />
                     </IconButton>
                 </div>
-                <FiltersSidebar filters={filters} onChange={setFilters} />
+                <FiltersSidebar filters={filters} onChange={handleFiltersChange} />
             </Drawer>
         </div>
     );

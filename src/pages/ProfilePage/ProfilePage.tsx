@@ -21,6 +21,7 @@ import { SellerChatSection } from './components/sections/SellerChatSection';
 import { BecomeSellerModal } from './components/BecomeSellerModal';
 import { Spinner } from '../../components/atoms/Spinner/Spinner';
 import styles from './ProfilePage.module.css';
+import { WatchedAuctionsSection } from './components/sections/WatchedAuctionsSection';
 
 export const ProfilePage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -97,6 +98,7 @@ export const ProfilePage = () => {
             case 'seller-sales': return <SellerSalesSection {...sectionProps} />;
             case 'seller-returns': return <SellerReturnsSection {...sectionProps} />;
             case 'seller-chat': return <SellerChatSection {...sectionProps} />;
+            case 'watched-auctions': return <WatchedAuctionsSection />;
             default: return <OverviewSection {...sectionProps} />;
         }
     };

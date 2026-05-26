@@ -54,8 +54,8 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-border) transparent;
+    max-height: 400px;
+    scroll-behavior: smooth;
 }
 
 .message {

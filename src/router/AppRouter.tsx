@@ -17,6 +17,7 @@ import { ThemeToggle } from '../components/atoms/ThemeToggle/ThemmeToggle';
 import AuctionsPage from '../pages/AuctionsPage/AuctionsPage';
 import AuctionDetailPage from '../pages/AuctionDetailPage/AuctionDetailPage';
 import CheckoutPage from '../pages/CheckoutPage/CheckoutPage';
+import { BrandsPage } from '../pages/BrandsPage/BrandsPage';
 
 const PublicLayout = () => (
   <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -82,6 +83,7 @@ export const AppRouter = () => {
           <Route path="/about" element={<div style={{ padding: '80px 32px', color: 'var(--color-text)', fontFamily: 'var(--font-body)' }}>About KickSneak — coming soon.</div>} />
           <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/auctions/:id" element={<AuctionDetailPage />} />
+          <Route path="/brands" element={<BrandsPage />} />
 
           <Route element={<ProtectedRoute />}>
             <Route path="/profile" element={<ProfilePage />} />

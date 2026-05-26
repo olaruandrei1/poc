@@ -30,10 +30,18 @@ export const ChatSection = ({ profile }: Props) => {
         { id: '1', role: 'assistant', content: WELCOME_MESSAGES['ai'], timestamp: new Date() },
     ]);
     const [input, setInput] = useState('');
+    const messagesRef = useRef<HTMLDivElement>(null);
     const bottomRef = useRef<HTMLDivElement>(null);
+    const isFirstMount = useRef(true);
 
     useEffect(() => {
-        bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+        if (isFirstMount.current) {
+            isFirstMount.current = false;
+            return;
+        }
+        if (messagesRef.current) {
+            messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+        }
     }, [messages]);
 
     const handleModeSwitch = (newMode: ChatMode) => {
@@ -105,7 +113,7 @@ export const ChatSection = ({ profile }: Props) => {
                 </div>
 
                 {/* Messages */}
-                <div className={styles.messages}>
+                <div className={styles.messages} ref={messagesRef}>
                     {messages.map((msg) => (
                         <div
                             key={msg.id}

@@ -104,6 +104,27 @@
     text-overflow: ellipsis;
 }
 
+.auctionBtn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(167,139,250,0.1);
+    border: 1px solid rgba(167,139,250,0.3);
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #a78bfa;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.auctionBtn:hover {
+    background: rgba(167,139,250,0.2);
+    border-color: #a78bfa;
+}
+
 .listingBrand {
     display: block;
     font-family: var(--font-display);
